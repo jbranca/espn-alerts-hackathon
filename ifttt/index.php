@@ -34,10 +34,14 @@ if ($facebookUser) {
 					var self = this;
 
 					$('.facebook-btn').on('click', function(event) {
+						var messageText = escape($('textarea[name=message]').text());
+
+						alert(messageText);
+
 						$.ajax({
 							type: 'POST',
 							url: '/espn-alerts-hackathon/ifttt/send-facebook-alert.php',
-							data: 'message=' + escape($('textarea[name=message]').text()),
+							data: 'message=' + messageText,
 							success: function(data) {
 								alert('Sent successfully');
 							}
