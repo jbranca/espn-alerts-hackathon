@@ -14,7 +14,7 @@ class Facebook
 	public function sendMail($message)
 	{
 		$mail = new SendGrid\Mail();
-		$mail->addTo('john.branca@gmail.com')
+		$mail->addTo('jbranca@facebook.com')
 			->setFrom('alerts2.0@espn.com')
 			->setSubject('Gunt')
 			->setText($message)
