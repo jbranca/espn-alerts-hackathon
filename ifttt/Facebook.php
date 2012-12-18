@@ -7,11 +7,12 @@ class Alerts_Facebook
 	const APP_ID = '259665347494601';
 	const APP_SECRET = '78c9a12d5aff0a2a36823cfee529e18d';
 
-	public function __construct($accessToken)
+	public function __construct()
 	{
-		return $facebook = new Facebook(array(
+		return new Facebook(array(
 			'appId'  => self::APP_ID,
 			'secret' => self::APP_SECRET,
+			'cookie' => true
 		));
 	}
 }
