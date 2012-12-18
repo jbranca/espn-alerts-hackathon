@@ -20,5 +20,10 @@
 		<button onclick="var duration = 500; Android.vibrateMorseCode(document.getElementById('morse').value, duration);">Vibrate Morse Code</button
 	</div>
 
+	<div>
+		<input type='text' id='tts' value='Hammer Time'/>
+		<button onclick="Android.textToSpeech(document.getElementById('tts').value);">Text To Speech</button>
+	</div>
+
 </body>
 </html>
