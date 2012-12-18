@@ -81,7 +81,6 @@ if ($facebookUser) {
 				<button type="button" class="facebook-btn btn btn-primary">Send to Facebook</button>
 				<?php endif; ?>
 				<button type="submit" class="btn btn-primary">Send to Twitter</button>
-				<button type="submit" class="btn btn-primary">Send to Klout</button>
 			</form>
 		</div>
 		<script type="text/javascript">
