@@ -16,7 +16,6 @@ if ($facebookUser) {
 
 if ($facebookUser) {
 	$facebookUrl = $alertsFacebook->facebook->getLogoutUrl();
-	$alertsFacebook->postWall();
 } else {
 	$facebookUrl = $alertsFacebook->facebook->getLoginUrl(array('scope' => 'email'));
 }
@@ -34,16 +33,28 @@ if ($facebookUser) {
 				{
 					var self = this;
 
+					$('.facebook-btn').on('click', function(event) {
+						$.ajax({
+							type: 'POST',
+							url: '/espn-alerts-hackathon/ifttt/send-facebook-alert.php',
+							data: 'message=' + escape($('textarea[name=message]').text()),
+							success: function(data) {
+								alert('Sent successfully');
+							}
+						})
+					});
+
 					self.apiUrl = 'http://api.espn.com/v1/sports/basketball/mens-college-basketball/events/323530012';
 					self.apiKey = 'k63bb77qjahygsjepf5qu7de';
 
-					window.setTimeout(self.poll, 10000);
+					// window.setTimeout(self.poll, 10000);
+					// self.poll();
 				},
 				poll: function()
 				{
 					$.ajax({
 						type: 'GET',
-						url: self.apiUrl + '?apikey=?' + self.apiKey;
+						url: self.apiUrl + '?apikey=?' + self.apiKey,
 						success: function(response) {
 
 						},
@@ -60,12 +71,17 @@ if ($facebookUser) {
 			<div><a href="<?php echo $facebookUrl; ?>">Login with Facebook</a></div>
 			<?php endif; ?>
 
-			<form method="POST" action="send-alert.php">
-				<textarea name="message">Example Text</textarea>
-				<button type="submit" class="btn btn-primary">Send to Facebook</button>
+			<form method="POST">
+				<textarea name="message" placeholder="Example Text"></textarea>
+				<?php if ($facebookUser): ?>
+				<button type="button" class="facebook-btn btn btn-primary">Send to Facebook</button>
+				<?php endif; ?>
 				<button type="submit" class="btn btn-primary">Send to Twitter</button>
 				<button type="submit" class="btn btn-primary">Send to Klout</button>
 			</form>
 		</div>
+		<script type="text/javascript">
+		Alerts.init();
+		</script>
 	</body>
 </html>

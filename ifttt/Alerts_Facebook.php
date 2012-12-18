@@ -16,13 +16,13 @@ class Alerts_Facebook
         ));
     }
 
-    public function postWall()
+    public function postWall($message)
     {
         $userId = $this->facebook->getUser();
 
         $parameters = array(
             'access_token'  => $this->facebook->getAccessToken(),
-            'message'       => "Test message",
+            'message'       => $message,
             'from'          => self::APP_ID,
             'to'            => $userId
         );
