@@ -11,16 +11,16 @@ class Facebook
 		$this->sendgrid = new SendGrid('jbranca', 'chowthis');
 	}
 
-	public function sendMail()
+	public function sendMail($message)
 	{
 		$mail = new SendGrid\Mail();
 		$mail->addTo('jbranca@facebook.com')
 			->setFrom('alerts2.0@espn.com')
 			->setSubject('Gunt')
-			->setText('hey')
-			->setHtml('<strong>Alerts</strong>');
+			->setText($message)
+			->setHtml($message);
 
-		$this->sendgrid->web->send($mail);
+		$this->sendgrid->smtp->send($mail);
 
 		echo 'Email Sent';
 
