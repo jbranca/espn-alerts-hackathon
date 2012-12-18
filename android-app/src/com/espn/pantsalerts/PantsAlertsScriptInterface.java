@@ -7,16 +7,15 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.speech.tts.TextToSpeech;
 
 public class PantsAlertsScriptInterface {
 
     Context mContext;
-	//Boolean mIsPantsAlertsOn;
 	//private SensorManager mSensorManager;
 	//private Sensor mSensor;
 	WebView mWebView;
-	//float mXCoord;
-	//int mSelectedOppId;
+	private TextToSpeech mTts;
 
 	/*
  	private final SensorEventListener mListener = new SensorEventListener() {
@@ -44,61 +43,14 @@ public class PantsAlertsScriptInterface {
 	*/
 
     /** Instantiate the interface and set the context */
-    PantsAlertsScriptInterface(Context c, WebView view) {
+    PantsAlertsScriptInterface(Context c, WebView view, TextToSpeech tts) {
         mContext = c;
-		//mIsPantsAlertsOn = false;
 		mWebView = view;
+		mTts = tts;
 
 		//mSensorManager = (SensorManager)mContext.getSystemService(Context.SENSOR_SERVICE);
         //mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION);
     }
-
-    /** Show a toast from the web page */
-	/*
-    public void pantsModeOn() {
-		// see: http://developer.android.com/reference/android/os/PowerManager.html
-		// about obtaining a wake lock
-		// see: http://developer.android.com/resources/samples/ApiDemos/src/com/example/android/apis/os/Sensors.html
-		// about accelerometers
-		mIsPantsAlertsOn = true;
-        mSensorManager.registerListener(mListener, mSensor, SensorManager.SENSOR_DELAY_GAME);
-	}
-
-	public void pantsModeOff() {
-		mIsPantsAlertsOn = false;
-        mSensorManager.unregisterListener(mListener);
-	}
-
-	public void buzzScore() {
-		if(mIsPantsAlertsOn) {
-			Vibrator vibrator = (Vibrator)mContext.getSystemService(Context.VIBRATOR_SERVICE);
-			vibrator.vibrate(400);
-		}
-    }
-
-	public void handleNewPlay(String downAndDistance) {
-		if(mIsPantsAlertsOn) {
-			String[] parts = downAndDistance.split(" ");
-			String downStr = "" + parts[0].charAt(0);
-			int down = Integer.parseInt(downStr);
-			int dist = Integer.parseInt("" + parts[2]);
-			long dur = 500;
-			if(dist > 5) { dur += 500; }
-			if(dist > 10) { dur += 500; }
-			//long[] pattern = new long[] { 100, 100, 100, dur};
-			long[] pattern = MorseCodeConverter.pattern(downStr);
-			long[] pattern2 = new long[pattern.length+2];
-			for(int i = 0; i < pattern.length; i++) {
-				pattern2[i] = pattern[i];
-			}
-			pattern2[pattern2.length - 2] = 200;
-			pattern2[pattern2.length - 1] = dur;
-
-			Vibrator vibrator = (Vibrator)mContext.getSystemService(Context.VIBRATOR_SERVICE);
-			vibrator.vibrate(pattern2, -1);
-		}
-	}
-	*/
 
 	public void vibrate(int duration) {
 		Vibrator vibrator = (Vibrator)mContext.getSystemService(Context.VIBRATOR_SERVICE);
@@ -120,6 +72,10 @@ public class PantsAlertsScriptInterface {
 
 	public void vibrateMorseCode(String code) {
 		vibrateMorseCode(code, 500);
+	}
+
+	public void textToSpeech(String text) {
+		mTts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
 	}
 
 }

@@ -1,16 +1,23 @@
 package com.espn.pantsalerts;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.view.KeyEvent;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
+import java.util.Locale;
+import android.widget.Toast;
 
 
-public class PantsAlerts extends Activity
+public class PantsAlerts extends Activity implements OnInitListener
 {
 	WebView mWebView;
+	private TextToSpeech mTts;
+	private int MY_TTS_DATA_CHECK_CODE = 0;
 	PantsAlertsScriptInterface mPantsAlertsScriptInterface;
 
 	private class PantsAlertsClient extends WebViewClient {
@@ -42,14 +49,22 @@ public class PantsAlerts extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+		Intent checkIntent = new Intent();
+		checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+		startActivityForResult(checkIntent, MY_TTS_DATA_CHECK_CODE);
+
+		//setupWebView();
+    }
+
+	protected void setupWebView() {
 		mWebView = (WebView)findViewById(R.id.webview);
 		mWebView.setWebViewClient(new PantsAlertsClient());
 		mWebView.getSettings().setJavaScriptEnabled(true);
-		mPantsAlertsScriptInterface = new PantsAlertsScriptInterface(this, mWebView);
+		mPantsAlertsScriptInterface = new PantsAlertsScriptInterface(this, mWebView, mTts);
 		mWebView.addJavascriptInterface(mPantsAlertsScriptInterface, "Android");
 		//mWebView.loadUrl("https://dl.dropbox.com/u/11303433/hackathon.html");
 		mWebView.loadUrl("http://ec2-72-44-62-42.compute-1.amazonaws.com/espn-alerts-hackathon/index.html");
-    }
+	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -58,5 +73,37 @@ public class PantsAlerts extends Activity
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(requestCode == MY_TTS_DATA_CHECK_CODE) {
+			if(resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+				// success, create the TTS instance, and no we are ready to launch the webview
+				mTts = new TextToSpeech(this, this);
+			} else {
+				// missing data, install it
+				Intent installIntent = new Intent();
+				installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+				startActivity(installIntent);
+			}
+		}
+	}
+
+	public void onInit(int initStatus) {
+		//check for successful instantiation
+		if(initStatus == TextToSpeech.SUCCESS) {
+			//@TODO: WTF, why doesnt this check work?
+			//if(mTts.isLanguageAvailable(Locale.US)==TextToSpeech.LANG_AVAILABLE) {
+				mTts.setLanguage(Locale.US);
+				setupWebView();
+			//}
+		}
+		else if(initStatus == TextToSpeech.ERROR) {
+			Toast.makeText(this, "Sorry! Text To Speech failed...", Toast.LENGTH_LONG).show();
+		}
+	}
+
+	public TextToSpeech getTTS() {
+		return mTts;
 	}
 }
