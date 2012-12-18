@@ -9,7 +9,7 @@ class Alerts_Facebook
 
 	public function __construct()
 	{
-		return new Facebook(array(
+		$this->facebook = new Facebook(array(
 			'appId'  => self::APP_ID,
 			'secret' => self::APP_SECRET,
 			'cookie' => true

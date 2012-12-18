@@ -1,23 +1,23 @@
 <?php
 
-require_once 'Facebook.php';
+require_once 'Alerts_Facebook.php';
 
-$facebook = new Facebook();
+$alertsFacebook = new Alerts_Facebook();
 
-$facebookUser = $facebook->getUser();
+$facebookUser = $alertsFacebook->facebook->getUser();
 
 if ($facebookUser) {
 	try {
-		$userProfile = $facebook->api('/me');
+		$userProfile = $alertsFacebook->facebook->api('/me');
 	} catch (FacebookApiException $e) {
 		$facebookUser = null;
 	}
 }
 
 if ($facebookUser) {
-	$facebookUrl = $facebook->getLogoutUrl();
+	$facebookUrl = $alertsFacebook->facebook->getLogoutUrl();
 } else {
-	$facebookUrl = $facebook->getLoginUrl();
+	$facebookUrl = $alertsFacebook->facebook->getLoginUrl(array('scope' => 'email'));
 }
 
 ?>
