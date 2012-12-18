@@ -1,15 +1,17 @@
 <?php
 
-class Facebook 
+require_once 'facebook-php-sdk/src/facebook.php';
+
+class Alerts_Facebook 
 {
-	public function __construct()
-	{}
+	const APP_ID = '259665347494601';
+	const APP_SECRET = '78c9a12d5aff0a2a36823cfee529e18d';
 
-	public function sendMail($message)
+	public function __construct($accessToken)
 	{
-		mail('jbranca@facebook.com', 'Subject', $message, "From: john.branca@gmail.com");
-
-		echo 'Email Sent';
-
+		return $facebook = new Facebook(array(
+			'appId'  => self::APP_ID,
+			'secret' => self::APP_SECRET,
+		));
 	}
 }
