@@ -1,0 +1,136 @@
+body{
+	font: 13px/1.385 helvetica,arial,clean,sans-serif;
+}
+.hscorebox .team-name, .vscorebox .team-name {
+background: none repeat scroll 0 0 #2B2B2B;
+color: white;
+height: 20px;
+line-height: 20px;
+margin: 0;
+padding: 0;
+text-align: center;
+text-transform: uppercase;
+min-width: 150px;
+font-weight: 700;
+}
+
+.score-info {
+overflow: hidden;
+padding: 3px 0 0;
+min-width: 125px;
+}
+
+.vscorebox {
+left: 1%;
+right: auto;
+}
+
+.vscorebox, .hscorebox {
+width: 49%;
+}
+
+.score-info .score {
+font-size: 36px;
+float:left;
+margin:5px 2px 2px;
+}
+
+.vscorebox, .hscorebox {
+
+height: 72px;
+padding: 0;
+
+overflow: visible;
+float: left;
+position: absolute;
+z-index: 10;
+
+}
+.vscorebox {
+left: 1%;
+right: auto;
+}
+.hscorebox {
+right: 1%;
+left: auto;
+}
+
+.ncaa .visitor.team-logo {
+margin-left: 0;
+margin-right: 0;
+}
+
+.home.team-logo {
+float: right;
+}
+
+.team-logo {
+width: 40px;
+height: 40px;
+margin: 6px 4px 0;
+}
+
+.ncaa .visitor.team-logo {
+text-align: center;
+}
+
+.visitor.team-logo {
+float: left;
+}
+.ncaa .hscorebox .score {
+right: 45px;
+}
+.vscorebox .score {
+text-align: left;
+}
+
+.hscorebox .score {
+position: absolute;
+text-align: right;
+}
+
+.ncaa .hscorebox .score {
+right: 45px;
+}
+
+.rotatingScore {
+height: 42px;
+left: 0;
+margin: 0;
+position: relative;
+width: auto;
+}
+
+.vscorebox, .hscorebox {
+
+height: 72px;
+padding: 0;
+
+overflow: visible;
+float: left;
+position: absolute;
+z-index: 10;
+
+}
+
+.linescorebox {
+
+width: 200px;
+position: relative;
+left: auto;
+right: auto;
+float: none;
+height: auto;
+margin: 0 auto;
+min-height: 56px;
+text-align:center;
+
+}
+
+.linescorebox {
+top: 91px;
+}
+
+.clock{
+	font-size:16px;
+}
