@@ -16,6 +16,7 @@ if ($facebookUser) {
 
 if ($facebookUser) {
 	$facebookUrl = $alertsFacebook->facebook->getLogoutUrl();
+	$alertsFacebook->postWall();
 } else {
 	$facebookUrl = $alertsFacebook->facebook->getLoginUrl(array('scope' => 'email'));
 }
