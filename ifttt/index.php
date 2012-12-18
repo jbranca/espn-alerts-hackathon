@@ -34,7 +34,7 @@ if ($facebookUser) {
 					var self = this;
 
 					$('.facebook-btn').on('click', function(event) {
-						var messageText = escape($('textarea[name=message]').text());
+						var messageText = escape($('input[name=message]').text());
 
 						alert(messageText);
 
@@ -76,7 +76,7 @@ if ($facebookUser) {
 			<?php endif; ?>
 
 			<form method="POST">
-				<textarea name="message" placeholder="Example Text"></textarea>
+				<input type="text" name="message" placeholder="Example Text" />
 				<?php if ($facebookUser): ?>
 				<button type="button" class="facebook-btn btn btn-primary">Send to Facebook</button>
 				<?php endif; ?>
