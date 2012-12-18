@@ -49,6 +49,7 @@ public class PantsAlerts extends Activity implements OnInitListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+		// see: http://mobile.tutsplus.com/tutorials/android/android-sdk-using-the-text-to-speech-engine/
 		Intent checkIntent = new Intent();
 		checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
 		startActivityForResult(checkIntent, MY_TTS_DATA_CHECK_CODE);

@@ -3,11 +3,14 @@ package com.espn.pantsalerts;
 import android.content.Context;
 import android.os.Vibrator;
 import android.webkit.WebView;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
+//import android.hardware.Sensor;
+//import android.hardware.SensorEvent;
+//import android.hardware.SensorEventListener;
+//import android.hardware.SensorManager;
 import android.speech.tts.TextToSpeech;
+import android.hardware.Camera;
+import android.hardware.Camera.Parameters;
+
 
 public class PantsAlertsScriptInterface {
 
@@ -16,6 +19,8 @@ public class PantsAlertsScriptInterface {
 	//private Sensor mSensor;
 	WebView mWebView;
 	private TextToSpeech mTts;
+	private Camera mCamera;
+	private Parameters mCameraParameters;
 
 	/*
  	private final SensorEventListener mListener = new SensorEventListener() {
@@ -76,6 +81,25 @@ public class PantsAlertsScriptInterface {
 
 	public void textToSpeech(String text) {
 		mTts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+	}
+
+	public void setCameraTorchOn() {
+		if(mCamera == null) {
+			mCamera = Camera.open();
+			mCameraParameters = mCamera.getParameters();
+		}
+		mCameraParameters.setFlashMode(Parameters.FLASH_MODE_TORCH);
+		mCamera.setParameters(mCameraParameters);
+	}
+
+	public void setCameraTorchOff() {
+		if(mCamera != null) {
+			mCameraParameters.setFlashMode(Parameters.FLASH_MODE_OFF);
+			mCamera.setParameters(mCameraParameters);
+			mCamera.release();
+			mCamera = null;
+			mCameraParameters = null;
+		}
 	}
 
 }
