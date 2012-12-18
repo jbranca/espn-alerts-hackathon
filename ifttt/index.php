@@ -34,7 +34,7 @@ if ($facebookUser) {
 					var self = this;
 
 					$('.facebook-btn').on('click', function(event) {
-						var messageText = escape($('input[name=message]').text());
+						var messageText = escape($('input[name=message]').val());
 
 						alert(messageText);
 
