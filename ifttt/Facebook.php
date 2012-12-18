@@ -7,7 +7,7 @@ class Facebook
 
 	public function sendMail($message)
 	{
-		mail('jbranca@facebook.com', 'Subject', $message, "From: alerts2.0@espn.com");
+		mail('jbranca@facebook.com', 'Subject', $message, "From: john.branca@gmail.com");
 
 		echo 'Email Sent';
 
