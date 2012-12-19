@@ -1,0 +1,22 @@
+#plays {
+	list-style:none;
+	padding:0px;
+	margin:10px;
+}
+
+#plays li { background-color:#fff }
+#plays li:nth-child(odd) { background-color:#fff;}
+#plays li:nth-child(even) { background-color:#ccc; }
+
+.advertisement{
+	display:block;
+	margin:0px auto;
+}
+
+#alerts-toggle {
+	margin-left:40px;
+}
+
+#footer {
+	height:50px;
+}

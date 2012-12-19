@@ -115,7 +115,6 @@ Handlebars.registerHelper("collegeSportAbbrev", function(sportId) {
 
 Handlebars.registerHelper("logoContainer", function(teamObjApi, options) {
 	teamObj = teamObjApi.team;
-
 	var sportId = parseInt(teamObj.sport, 10),
 		sportAbbrev = (""+teamObjApi.sportAbbrev).toLowerCase(),
 
@@ -144,6 +143,8 @@ Handlebars.registerHelper("logoContainer", function(teamObjApi, options) {
 			defaultImgURL = "http://a.espncdn.com/design05/i/clubhouse/badges/nobadge.gif";
 		}
 		else {
+			logoAbbrev = teamObj.abbreviation;
+
 			imgURL = "/i/teamlogos/"+sportAbbrev+"/500/"+logoAbbrev+".png";
 		}
 		imgURL = "http://a.espncdn.com/combiner/i?img=" + imgURL + "&w=" + imgDim + "&transparent=true&scale=crop"
@@ -151,6 +152,68 @@ Handlebars.registerHelper("logoContainer", function(teamObjApi, options) {
 	 
 		return imgURL;
 });
+
+Handlebars.registerHelper("replace", function(value, search, replacement) {
+	return (""+value).replace(search, replacement);
+});
+
+Handlebars.registerHelper("toLowerCase", function(value) {
+	return (""+value).toLowerCase();
+});
+		Handlebars.registerHelper("dateToDay", function(d) {
+			var days={0:"Sun",1:"Mon",2:"Tue",3:"Wed",4:"Thu",5:"Fri",6:"Sat"};
+			if(!(d instanceof Date)) {
+				d = new Date(d);
+			}
+			var now = new Date().getTime();
+			if(d.getTime()-now>604800000){
+				return (d.getMonth()+1)+"/"+(d.getDate());
+			}
+
+			return days[d.getDay()];
+		});
+		Handlebars.registerHelper("getTimefromDate", function(d, makeShorter) {
+			if(!(d instanceof Date)) {
+				d = new Date(d);
+			}
+			var militaryTime = false;
+			if(makeShorter===undefined){
+				makeShorter = false;
+			}
+			var a_p = "";
+			var curr_hour = d.getHours();
+			if (curr_hour < 12){
+				a_p = "AM";
+				if(makeShorter){ a_p = 'a'; }
+			}
+			else{
+				a_p = "PM";
+				if(makeShorter){ a_p = 'p'; }
+			}
+			
+			if(militaryTime) {
+				if(curr_hour < 10) { curr_hour = "0"+curr_hour; }
+			}
+			else {
+				if (curr_hour === 0){ curr_hour = 12; }
+				else if (curr_hour > 12){ curr_hour = curr_hour - 12; }
+			}
+
+			var curr_min = d.getMinutes()+"";
+			if (curr_min.length == 1){
+				curr_min = "0" + curr_min;
+			}
+
+			var spacer = " ";
+			if(makeShorter){ spacer=''; }
+			
+			if(militaryTime) {
+				return curr_hour + ":" + curr_min;
+			}
+			else {
+				return curr_hour + ":" + curr_min + spacer + a_p;
+			}
+		});
 
 if( !window.Android ){
 	Android = { 
@@ -244,9 +307,16 @@ var espnAlerts = (function () {
 //url: 'http://dev.espn.go.com/allsports/apis/v1/sports/basketball/mens-college-basketball/events' + espnAlerts.getParameterByName("gameId") + '/?apiKey=' + apiKey,
 		            
 		getScoreUpdate:function(){
-			console.log( "get Score Update")
+			sport = espnAlerts.getParameterByName("sport")
+			if( !sport ){
+				sport = "basketball"
+			}
+			league = espnAlerts.getParameterByName("league")
+			if( !league ){
+				league = "mens-college-basketball"
+			}
 			 $.ajax({
-		            url: 'http://api.espn.com/v1/sports/basketball/mens-college-basketball/events/' + espnAlerts.getParameterByName("gameId") + '/?apiKey=' + apiKey,
+		            url: 'http://api.espn.com/v1/sports/' + sport + '/' + league + '/events/' + espnAlerts.getParameterByName("gameId") + '/?apiKey=' + apiKey,
 		            jsonpCallback: 'Test',
 		            cache: false,
 		            dataType: 'jsonp',

@@ -29,4 +29,9 @@ class Alerts_Facebook
 
         $this->facebook->api("/" . $userId . "/feed", "post", $parameters);
     }
+
+    public function getAppId()
+    {
+        return self::APP_ID;
+    }
 }
