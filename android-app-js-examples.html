@@ -28,8 +28,10 @@
 
 	<h2>Text to Speech</h2>
 	<div>
-		<input type='text' id='tts' value='Hammer Time'/>
-		<button onclick="Android.textToSpeech($('tts').value);">Text To Speech</button>
+		<input type='text' id='tts' value='Hammer Time, Can\'t touch this, duh duh duh'/>
+		<button onclick="Android.textToSpeech($('tts').value);">Speak (queued)</button> 
+		<br />
+		<button onclick="Android.textToSpeechNow($('tts').value);">Speak (immediately)</button>
 	</div>
 
 	<h2>Camera Light</h2>
