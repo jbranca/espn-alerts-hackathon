@@ -26,6 +26,11 @@ if ($facebookUser) {
 	<head>
 		<title>Social</title>
 		<link href="vendor/bootstrap-2.2.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<style type="text/css">
+		.twitter-button-container {
+			width: 80px !important;
+		}
+		</style>
 		<script type="text/javascript" src="vendor/jquery-1.8.3.min.js"></script>
 		<script type="text/javascript">
 			Alerts = {
@@ -58,9 +63,9 @@ if ($facebookUser) {
 			<form method="POST">
 				<input type="text" name="message" placeholder="Example Text" />
 				<?php if ($facebookUser): ?>
-				<button type="button" class="facebook-btn btn btn-primary" style="background-color:#3B5998 !important;"><img src="image/facebook_32.png" />Send to Facebook</button>
+				<button type="button" class="facebook-btn btn"><img src="image/facebook_16.png" /> Send to Facebook</button>
 				<?php endif; ?>
-				<a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-count="none">Tweet</a>
+				<a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-count="none" data-size="large">Tweet</a>
 				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 			</form>
 		</div>

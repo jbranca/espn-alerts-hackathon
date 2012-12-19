@@ -34,7 +34,6 @@ Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
 
 Handlebars.registerHelper("logoContainer", function(teamObjApi, options) {
 	teamObj = teamObjApi.team;
-
 	var sportId = parseInt(teamObj.sport, 10),
 		sportAbbrev = (""+teamObjApi.sportAbbrev).toLowerCase(),
 
@@ -63,6 +62,8 @@ Handlebars.registerHelper("logoContainer", function(teamObjApi, options) {
 			defaultImgURL = "http://a.espncdn.com/design05/i/clubhouse/badges/nobadge.gif";
 		}
 		else {
+			logoAbbrev = teamObj.abbreviation;
+
 			imgURL = "/i/teamlogos/"+sportAbbrev+"/500/"+logoAbbrev+".png";
 		}
 		imgURL = "http://a.espncdn.com/combiner/i?img=" + imgURL + "&w=" + imgDim + "&transparent=true&scale=crop"
@@ -225,9 +226,16 @@ var espnAlerts = (function () {
 //url: 'http://dev.espn.go.com/allsports/apis/v1/sports/basketball/mens-college-basketball/events' + espnAlerts.getParameterByName("gameId") + '/?apiKey=' + apiKey,
 		            
 		getScoreUpdate:function(){
-			console.log( "get Score Update")
+			sport = espnAlerts.getParameterByName("sport")
+			if( !sport ){
+				sport = "basketball"
+			}
+			league = espnAlerts.getParameterByName("league")
+			if( !league ){
+				league = "mens-college-basketball"
+			}
 			 $.ajax({
-		            url: 'http://api.espn.com/v1/sports/basketball/mens-college-basketball/events/' + espnAlerts.getParameterByName("gameId") + '/?apiKey=' + apiKey,
+		            url: 'http://api.espn.com/v1/sports/' + sport + '/' + league + '/events/' + espnAlerts.getParameterByName("gameId") + '/?apiKey=' + apiKey,
 		            jsonpCallback: 'Test',
 		            cache: false,
 		            dataType: 'jsonp',
