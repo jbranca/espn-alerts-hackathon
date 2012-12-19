@@ -152,16 +152,13 @@ var espnAlerts = (function () {
 		},
 		doVibrate: function( vibrates ){
 
-			var lastVibrate = 0;
-			for( var x = 0; x <= vibrates.length - 1; x++)(function(vibrate){
-				lastVibrate = lastVibrate + vibrate + 200;
-			
-				setTimeout( function(){
-					Android.vibrate( vibrate );
-					
-					
-				}, lastVibrate )
-			})(vibrates[x])
+			var pattern = [],
+				pauseDuration = 200;
+			$.each(vibrates, function(v) {
+				pattern.push(pauseDuration);
+				pattern.push(v);
+			});
+			Android.vibrate(pattern, -1); // -1 means do not repeat
 		},
 //url: 'http://dev.espn.go.com/allsports/apis/v1/sports/basketball/mens-college-basketball/events' + espnAlerts.getParameterByName("gameId") + '/?apiKey=' + apiKey,
 		            
