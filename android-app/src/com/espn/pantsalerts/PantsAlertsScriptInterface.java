@@ -10,6 +10,7 @@ import android.webkit.WebView;
 import android.speech.tts.TextToSpeech;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
+import android.util.Log;
 
 
 public class PantsAlertsScriptInterface {
@@ -20,7 +21,9 @@ public class PantsAlertsScriptInterface {
 	WebView mWebView;
 	private TextToSpeech mTts;
 	private Camera mCamera;
-	private Parameters mCameraParameters;
+	private Camera.Parameters mCameraParameters;
+	//public volatile boolean requestStrobeStop = false;
+	public volatile boolean isStrobeRunning = false;
 
 	/*
  	private final SensorEventListener mListener = new SensorEventListener() {
@@ -88,18 +91,72 @@ public class PantsAlertsScriptInterface {
 			mCamera = Camera.open();
 			mCameraParameters = mCamera.getParameters();
 		}
-		mCameraParameters.setFlashMode(Parameters.FLASH_MODE_TORCH);
+		mCameraParameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
 		mCamera.setParameters(mCameraParameters);
 	}
 
 	public void setCameraTorchOff() {
 		if(mCamera != null) {
-			mCameraParameters.setFlashMode(Parameters.FLASH_MODE_OFF);
+			mCameraParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
 			mCamera.setParameters(mCameraParameters);
 			mCamera.release();
 			mCamera = null;
 			mCameraParameters = null;
 		}
+	}
+
+	/*
+	public void stopCameraStrobe() {
+		requestStrobeStop = true;
+	}
+	*/
+
+	public void startCameraStrobe(int numFlashes) {
+		startCameraStrobe(numFlashes, 10);
+	}
+
+	public void startCameraStrobe(int numFlashes, int strobeDelay) {
+		startCameraStrobe(numFlashes, strobeDelay, 500);
+	}
+
+	public void startCameraStrobe(int numFlashes, int strobeDelay, int strobeDelayOff) {
+    	if(isStrobeRunning) {
+    		return;
+		}
+    	
+    	//requestStrobeStop = false;
+    	isStrobeRunning = true;
+    	
+		if(mCamera == null) { 
+			mCamera = Camera.open();
+		}
+		
+    	Camera.Parameters pon = mCamera.getParameters();
+		Camera.Parameters poff = mCamera.getParameters();
+    	pon.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+    	poff.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+    	
+		int count = 0;
+    	while(count++ < numFlashes) {// && !requestStrobeStop) {
+    		try{
+        		mCamera.setParameters(pon);
+        		Thread.sleep(strobeDelay);
+        		mCamera.setParameters(poff);
+        		Thread.sleep(strobeDelayOff);
+    		}
+    		catch(InterruptedException ex) {
+    		}
+    		catch(RuntimeException ex) {
+    			//requestStrobeStop = true;
+    		}
+    	}
+    	
+    	mCamera.release();
+		mCamera = null;
+		mCameraParameters = null;
+    	
+    	isStrobeRunning = false;
+    	//requestStrobeStop = false;
 	}
 
 }

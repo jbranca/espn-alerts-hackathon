@@ -6,28 +6,43 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<title>Android JS Interface Example Usage</title>
 	<meta name="format-detection" content="telephone=no"/>
+	<script>
+	function $(id) {
+		return document.getElementById(id);
+	}
+	</script>
 </head>
 <body>
 	<h1>Anrdoid JS Interface Example Usage</h1>
 
+	<h2>Vibrator</h2>
 	<div>
 		<input type='text' value='400' id='vibratedur'/>
-		<button onclick="Android.vibrate(parseInt(document.getElementById('vibratedur').value, 10));">Vibrate for specified milliseconds</button>
+		<button onclick="Android.vibrate(parseInt($('vibratedur').value, 10));">Vibrate for specified milliseconds</button>
 	</div>
 
 	<div>
 		<input type='text' id='morse' value='SOS'/>
-		<button onclick="var duration = 500; Android.vibrateMorseCode(document.getElementById('morse').value, duration);">Vibrate Morse Code</button
+		<button onclick="var duration = 500; Android.vibrateMorseCode($('morse').value, duration);">Vibrate Morse Code</button
 	</div>
 
+	<h2>Text to Speech</h2>
 	<div>
 		<input type='text' id='tts' value='Hammer Time'/>
-		<button onclick="Android.textToSpeech(document.getElementById('tts').value);">Text To Speech</button>
+		<button onclick="Android.textToSpeech($('tts').value);">Text To Speech</button>
 	</div>
 
+	<h2>Camera Light</h2>
 	<div>
 		<button onclick="Android.setCameraTorchOn();">Camera Torch On</button>
 		<button onclick="Android.setCameraTorchOff();">Camera Torch Off</button>
+	</div>
+
+	<div>
+		<label>Flash count: <input type='text' id='strobenum' size='5' value='5'/></label><br/>
+		<label>Flash delay: <input type='text' id='strobedelay' size='5' value='10'/></label><br/>
+		<label>Flash delay off: <input type='text' id='strobedelayoff' size='5' value='500'/></label><br/>
+		<button onclick="Android.startCameraStrobe(parseInt($('strobenum').value,10), parseInt($('strobedelay').value,10), parseInt($('strobedelayoff').value,10));">Start Strobe</button>
 	</div>
 
 </body>

@@ -64,6 +64,7 @@ public class PantsAlerts extends Activity implements OnInitListener
 		mPantsAlertsScriptInterface = new PantsAlertsScriptInterface(this, mWebView, mTts);
 		mWebView.addJavascriptInterface(mPantsAlertsScriptInterface, "Android");
 		//mWebView.loadUrl("https://dl.dropbox.com/u/11303433/hackathon.html");
+		//mWebView.loadUrl("http://dl.dropbox.com/u/3359706/hackathon.html");
 		mWebView.loadUrl("http://ec2-72-44-62-42.compute-1.amazonaws.com/espn-alerts-hackathon/index.html");
 	}
 
