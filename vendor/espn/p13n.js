@@ -53,6 +53,7 @@ espn.p13n = function(window, $) {
 		// this might clobber other window.name storage
 		$.ajax({
 				'url': _host+'/composer/myespn',
+				//'url': 'http://ec2-72-44-62-42.compute-1.amazonaws.com/espn-alerts-hackathon/static/mysports.json',
 				'dataType': 'jsonp',
 				'cache': false,
 				'type': 'GET',

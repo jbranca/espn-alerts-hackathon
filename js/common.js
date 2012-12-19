@@ -32,6 +32,87 @@ Handlebars.registerHelper('compare', function(lvalue, rvalue, options) {
 	}
 });
 
+Handlebars.registerHelper("debug", function(optionalValue) { 
+	console.log("begin debug: Current Context"); 
+	console.log(this);   
+	if(optionalValue) { 
+		console.log("Value"); 
+		console.log(optionalValue); 
+	} 
+	console.log("end debug");
+});
+
+Handlebars.registerHelper("dateToDay", function(d) {
+	var days={0:"Sun",1:"Mon",2:"Tue",3:"Wed",4:"Thu",5:"Fri",6:"Sat"};
+	if(!(d instanceof Date)) {
+		d = new Date(d);
+	}
+	var now = new Date().getTime();
+	if(d.getTime()-now>604800000){
+		return (d.getMonth()+1)+"/"+(d.getDate());
+	}
+
+	return days[d.getDay()];
+});
+Handlebars.registerHelper("getTimefromDate", function(d, makeShorter) {
+	if(!(d instanceof Date)) {
+		d = new Date(d);
+	}
+	var militaryTime = false;
+	if(makeShorter===undefined){
+		makeShorter = false;
+	}
+	var a_p = "";
+	var curr_hour = d.getHours();
+	if (curr_hour < 12){
+		a_p = "AM";
+		if(makeShorter){ a_p = 'a'; }
+	}
+	else{
+		a_p = "PM";
+		if(makeShorter){ a_p = 'p'; }
+	}
+	
+	if(militaryTime) {
+		if(curr_hour < 10) { curr_hour = "0"+curr_hour; }
+	}
+	else {
+		if (curr_hour === 0){ curr_hour = 12; }
+		else if (curr_hour > 12){ curr_hour = curr_hour - 12; }
+	}
+
+	var curr_min = d.getMinutes()+"";
+	if (curr_min.length == 1){
+		curr_min = "0" + curr_min;
+	}
+
+	var spacer = " ";
+	if(makeShorter){ spacer=''; }
+	
+	if(militaryTime) {
+		return curr_hour + ":" + curr_min;
+	}
+	else {
+		return curr_hour + ":" + curr_min + spacer + a_p;
+	}
+});
+
+Handlebars.registerHelper("replace", function(value, search, replacement) {
+	return (""+value).replace(search, replacement);
+});
+
+Handlebars.registerHelper("toLowerCase", function(value) {
+	return (""+value).toLowerCase();
+});
+
+
+Handlebars.registerHelper("collegeSportAbbrev", function(sportId) {
+	sportId = parseInt(sportId, 10);
+	var displays = {23:'NCAAF',41:'NCAAB',54:'NCAAW'};
+	return displays[sportId] || "";	
+});
+
+
 Handlebars.registerHelper("logoContainer", function(teamObjApi, options) {
 	teamObj = teamObjApi.team;
 

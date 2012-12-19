@@ -1,4 +1,6 @@
-(function($) {
+var espn = espn || {};
+
+espn.api = (function($) {
 
 	var apiKey = "apikey=d33p8cps2gztazst76784r5j";
     var api = {},
@@ -53,4 +55,6 @@
     };
 
     window.api = api;
+
+	return api;
 })(jQuery);
