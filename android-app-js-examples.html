@@ -43,6 +43,8 @@
 		<label>Flash delay: <input type='text' id='strobedelay' size='5' value='10'/></label><br/>
 		<label>Flash delay off: <input type='text' id='strobedelayoff' size='5' value='500'/></label><br/>
 		<button onclick="Android.startCameraStrobe(parseInt($('strobenum').value,10), parseInt($('strobedelay').value,10), parseInt($('strobedelayoff').value,10));">Start Strobe</button>
+		<br/>
+		<button onclick="Android.requestStopCameraStrobe();">Stop Strobe (if running)</button>
 	</div>
 
 </body>
