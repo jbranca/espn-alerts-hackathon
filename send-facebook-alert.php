@@ -1,6 +1,6 @@
 <?php
 
-require_once 'Alerts_Facebook.php';
+require_once 'lib/Alerts/Facebook.php';
 
 $message = $_POST['message'];
 

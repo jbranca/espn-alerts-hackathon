@@ -1,6 +1,6 @@
 <?php
 
-require_once 'facebook-php-sdk/src/facebook.php';
+require_once 'vendor/facebook-php-sdk/src/facebook.php';
 
 class Alerts_Facebook 
 {
