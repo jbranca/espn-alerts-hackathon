@@ -147,14 +147,14 @@ var espnAlerts = (function () {
 			}
 			
 		},
-		doFlash: function( count, delay, off){
-			Android.startCameraStrobe(count, delay, off);
+		doFlash: function( count, off, delay){
+			Android.startCameraStrobe(count, off, delay);
 		},
 		doVibrate: function( vibrates ){
 
 			var pattern = [],
 				pauseDuration = 200;
-			$.each(vibrates, function(v) {
+			$.each(vibrates, function(i,v) {
 				pattern.push(pauseDuration);
 				pattern.push(v);
 			});

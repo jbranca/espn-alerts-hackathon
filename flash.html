@@ -32,13 +32,13 @@ $(document).ready(function() {
 	  		//espnAlerts.doVibrate( [1000] )
 	  }else{ 
 		  if( team == 1 ){
-		  	espnAlerts.doFlash( 1, 100, 500 )
+		  	espnAlerts.doFlash( 1, 500, 100 )
 		  }else if( team == 2 ){
-		  	espnAlerts.doFlash( 2, 100, 500 )
+		  	espnAlerts.doFlash( 2, 500, 100 )
 		  }
 	 
 		  setTimeout( function(){	
-				espnAlerts.doFlash( 1, espnAlerts.getScore( data ), 1000 )
+				espnAlerts.doFlash( 1, 1000, espnAlerts.getScore( data ) )
 			}, 1000 )
 	 }
 	  
