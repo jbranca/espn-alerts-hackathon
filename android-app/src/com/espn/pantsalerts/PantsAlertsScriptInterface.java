@@ -30,21 +30,15 @@ public class PantsAlertsScriptInterface {
 		vibrator.vibrate((long)duration);
 	}
 
-	public void vibrateMorseCode(String code, long dur) {
+	public void vibrateMorseCode(String code) {
 		long[] pattern = MorseCodeConverter.pattern(code);
-		long[] pattern2 = new long[pattern.length+2];
-		for(int i = 0; i < pattern.length; i++) {
-			pattern2[i] = pattern[i];
-		}
-		pattern2[pattern2.length - 2] = 200;
-		pattern2[pattern2.length - 1] = dur;
-
 		Vibrator vibrator = (Vibrator)mContext.getSystemService(Context.VIBRATOR_SERVICE);
-		vibrator.vibrate(pattern2, -1);
+		vibrator.vibrate(pattern, -1);
 	}
 
-	public void vibrateMorseCode(String code) {
-		vibrateMorseCode(code, 500);
+	// the dur param was left over from some other code, dont use this method signature...
+	public void vibrateMorseCode(String code, long dur) {
+		vibrateMorseCode(code);
 	}
 
 	public void textToSpeech(String text) {
