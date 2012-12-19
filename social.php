@@ -38,7 +38,7 @@ if ($facebookUser) {
 
 						$.ajax({
 							type: 'POST',
-							url: '/espn-alerts-hackathon/ifttt/send-facebook-alert.php',
+							url: '/espn-alerts-hackathon/send-facebook-alert.php',
 							data: 'message=' + messageText,
 							success: function(data) {
 								alert('Sent successfully');
