@@ -23,7 +23,7 @@
 $(document).ready(function() {
 
 	$.subscribe("/score/update", function( e, data ) {
-			console.log( "enabled:" + espnAlerts.getAlertsEnabled() )
+		
 	  if( espnAlerts.getAlertsEnabled() ){
 		  team = espnAlerts.getTeam( data )
 		  
@@ -69,16 +69,20 @@ $(document).ready(function() {
 
 </script>
 
-<h1>Vibrate</h1>
+<div id="header" style="height:72px;"></div>
+<div style="clear:both;margin-bottom:15px;"></div>
 
-<div id="header"></div>
+<img src="images/dockers.png">
 
-
+<div class="instructions">
 <div class="team-instructions">
 	<h5>Team Prefix</h5>
 	<div id="team-instructions-away"></div>
 	<div id="team-instructions-home"></div>
 </div>
+
+
+
 <div class="score-instructions score-instructions-basketball">
 <h5>Alert every 10 seconds of the Game Time</h5>
 
@@ -86,7 +90,7 @@ $(document).ready(function() {
 <div>2 Seconds = 6-10 point lead</div>
 <div>3 Seconds = > 10 point lead</div>
 </div>
-
+</div>
 <button type="button" class="btn btn-large btn-danger" id="alerts-toggle">Stop</button>
 
 </body>
