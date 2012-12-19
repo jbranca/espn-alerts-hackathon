@@ -143,12 +143,24 @@ public class PantsAlertsScriptInterface {
 	}
 
 	/**
-	 * Speak the given text message
+	 * Speak the given text. The message is added to the end of the queue of messages
+	 * and will be spoken once all messages ahead of it complete.
 	 *
 	 * @param String text
 	 *	The message to speak
 	 */
 	public void textToSpeech(String text) {
+		mTts.speak(text, TextToSpeech.QUEUE_ADD, null);
+	}
+
+	/**
+	 * Speak the given text message. Will speak immediately interrupting anything currently
+	 * being spoken and also flush any existing queued messages.
+	 *
+	 * @param String text
+	 *	The message to speak
+	 */
+	public void textToSpeechNow(String text) {
 		mTts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
 	}
 
