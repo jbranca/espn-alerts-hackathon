@@ -70,15 +70,17 @@ Handlebars.registerHelper("logoContainer", function(teamObjApi, options) {
 	 
 		return imgURL;
 });
- 
-if( typeof(Android) != undefined ){
+
+if( !window.Android ){
 	Android = { 
 			vibrate: function(duration){ console.log( "Vibrate for:" + duration ) },
-			flash: function(duration){ console.log( "Camera Flash for:" + duration ) },
-			speek: function(text){ console.log( "Say:" + text ) },
+			startCameraStrobe: function(number,delay,off){ console.log( "Camera Flash for:" + number + " times, " + delay + " delay, " + off + " off" ) },
+			setCameraTorchOn: function(){ console.log( "Camera flash on") },
+			setCameraTorchOff: function(){ console.log( "Camera flash off") },
+			speek: function(text){ console.log( "Say:" + text ) }
 	}
 }
-
+ 
 var espnAlerts = (function () {
 
 	var apiKey = "s5xerbqgn96xdyzwckgyzu9p";
@@ -88,6 +90,9 @@ var espnAlerts = (function () {
 	return {
 
 		headerTemplate: "",
+		cameraTorchOn: false,
+		firstTime: true,
+		alertsEnabled: true,
 		getHeaderTemplate: function(){
 			return headerTemplate;
 		},
@@ -104,8 +109,13 @@ var espnAlerts = (function () {
 		   }
 		},
 
+		getAlertsEnabled: function(){
+			return espnAlerts.alertsEnabled;
+		},
+		toggleAlerts: function(){
+			espnAlerts.alertsEnabled = (( espnAlerts.alertsEnabled )? false : true );
+		},
 		init: function(){
-			console.log( "init")
 			$.ajax({
 		            url: 'templates/header.tmpl',
 		            
@@ -116,14 +126,30 @@ var espnAlerts = (function () {
 						espnAlerts.getScoreUpdate();
 					}
 			});
-			/*
+			 
 			var myVar=setInterval(
 				function(){
 					espnAlerts.getScoreUpdate()
-				},5000);
-			*/
+				},10000);
+			 
 		},
 
+		isCameraTorchOn: function(){
+			return espnAlerts.cameraTorchOn;
+		},
+		toggleFlash: function(){
+			if( espnAlerts.isCameraTorchOn() ){
+				cameraTorchOn = false;
+				Android.setCameraTorchOff();
+			}else{
+				cameraTorchOn = false;
+				Android.setCameraTorchOn();
+			}
+			
+		},
+		doFlash: function( count, delay, off){
+			Android.startCameraStrobe(count, delay, off);
+		},
 		doVibrate: function( vibrates ){
 
 			var lastVibrate = 0;
@@ -171,7 +197,10 @@ var espnAlerts = (function () {
 		            							}
 		            							 
 		            						}
-
+		            						if( espnAlerts.firstTime ){
+		            							$.publish("/score/firstTime", gameEvent.competitions);
+		            							espnAlerts.firstTime = false
+		            						}
 		            						$.publish("/score/update", gameEvent.competitions);
 		            					}
 		            				}
