@@ -1,6 +1,10 @@
 body{
 	font: 13px/1.385 helvetica,arial,clean,sans-serif;
 }
+
+#top{
+	top:-20px;
+}
 .hscorebox .team-name, .vscorebox .team-name {
 background: none repeat scroll 0 0 #2B2B2B;
 color: white;
@@ -24,7 +28,9 @@ min-width: 125px;
 left: 1%;
 right: auto;
 }
-
+.hscorebox {
+top: 0px;
+}
 .vscorebox, .hscorebox {
 width: 49%;
 }
@@ -128,9 +134,13 @@ text-align:center;
 }
 
 .linescorebox {
-top: 91px;
+top: 30px;
 }
 
 .clock{
 	font-size:16px;
+}
+
+.instructions{
+	padding-left: 10x;
 }
