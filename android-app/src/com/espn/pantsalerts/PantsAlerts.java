@@ -53,8 +53,6 @@ public class PantsAlerts extends Activity implements OnInitListener
 		Intent checkIntent = new Intent();
 		checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
 		startActivityForResult(checkIntent, MY_TTS_DATA_CHECK_CODE);
-
-		//setupWebView();
     }
 
 	protected void setupWebView() {
@@ -80,7 +78,7 @@ public class PantsAlerts extends Activity implements OnInitListener
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(requestCode == MY_TTS_DATA_CHECK_CODE) {
 			if(resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
-				// success, create the TTS instance, and no we are ready to launch the webview
+				// success, create the TTS instance, and now we are ready to launch the webview
 				mTts = new TextToSpeech(this, this);
 			} else {
 				// missing data, install it
@@ -105,7 +103,4 @@ public class PantsAlerts extends Activity implements OnInitListener
 		}
 	}
 
-	public TextToSpeech getTTS() {
-		return mTts;
-	}
 }
