@@ -36,8 +36,6 @@ if ($facebookUser) {
 					$('.facebook-btn').on('click', function(event) {
 						var messageText = escape($('input[name=message]').val());
 
-						alert(messageText);
-
 						$.ajax({
 							type: 'POST',
 							url: '/espn-alerts-hackathon/ifttt/send-facebook-alert.php',
@@ -47,32 +45,14 @@ if ($facebookUser) {
 							}
 						})
 					});
-
-					self.apiUrl = 'http://api.espn.com/v1/sports/basketball/mens-college-basketball/events/323530012';
-					self.apiKey = 'k63bb77qjahygsjepf5qu7de';
-
-					// window.setTimeout(self.poll, 10000);
-					// self.poll();
-				},
-				poll: function()
-				{
-					$.ajax({
-						type: 'GET',
-						url: self.apiUrl + '?apikey=?' + self.apiKey,
-						success: function(response) {
-
-						},
-					})
 				}
 			};
 		</script>
 	</head>
 	<body>
 		<div class="container">
-			<?php if ($facebookUser): ?>
-			<div><a href="<?php echo $facebookUrl; ?>">Logout of Facebook</a></div>
-			<?php else: ?>
-			<div><a href="<?php echo $facebookUrl; ?>">Login with Facebook</a></div>
+			<?php if (! $facebookUser): ?>
+			<div class="fb-login-button" data-show-faces="false" data-width="200" data-max-rows="1" data-registration-url="social.php"></div>
 			<?php endif; ?>
 
 			<form method="POST">
@@ -84,7 +64,14 @@ if ($facebookUser) {
 				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 			</form>
 		</div>
-		<script type="text/javascript">
+		<div id="fb-root"></div>
+		<script>(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=<?php echo $alertsFacebook->getAppId(); ?>";
+		fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
 		Alerts.init();
 		</script>
 	</body>
