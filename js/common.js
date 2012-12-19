@@ -70,8 +70,14 @@ Handlebars.registerHelper("logoContainer", function(teamObjApi, options) {
 	 
 		return imgURL;
 });
-
-
+ 
+if( typeof(Android) != undefined ){
+	Android = { 
+			vibrate: function(duration){ console.log( "Vibrate for:" + duration ) },
+			flash: function(duration){ console.log( "Camera Flash for:" + duration ) },
+			speek: function(text){ console.log( "Say:" + text ) },
+	}
+}
 
 var espnAlerts = (function () {
 
@@ -80,6 +86,11 @@ var espnAlerts = (function () {
 
 
 	return {
+
+		headerTemplate: "",
+		getHeaderTemplate: function(){
+			return headerTemplate;
+		},
 
 		getParameterByName: function(name){
 		  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
@@ -94,14 +105,40 @@ var espnAlerts = (function () {
 		},
 
 		init: function(){
-
-			espnAlerts.getScoreUpdate();
+			console.log( "init")
+			$.ajax({
+		            url: 'templates/header.tmpl',
+		            
+		            success: function (data) {
+		            	 
+		            	headerTemplate = data;
+		            	 
+						espnAlerts.getScoreUpdate();
+					}
+			});
+			/*
 			var myVar=setInterval(
 				function(){
 					espnAlerts.getScoreUpdate()
 				},5000);
+			*/
 		},
 
+		doVibrate: function( vibrates ){
+
+			var lastVibrate = 0;
+			for( var x = 0; x <= vibrates.length - 1; x++)(function(vibrate){
+				lastVibrate = lastVibrate + vibrate + 200;
+			
+				setTimeout( function(){
+					Android.vibrate( vibrate );
+					
+					
+				}, lastVibrate )
+			})(vibrates[x])
+		},
+//url: 'http://dev.espn.go.com/allsports/apis/v1/sports/basketball/mens-college-basketball/events' + espnAlerts.getParameterByName("gameId") + '/?apiKey=' + apiKey,
+		            
 		getScoreUpdate:function(){
 			console.log( "get Score Update")
 			 $.ajax({
@@ -144,6 +181,43 @@ var espnAlerts = (function () {
 		                  
 		            }
 		      });
+		},
+
+		getTeam: function( competition ){
+
+			team = 0;
+			if( competition.competitors.length == 2 ){
+				if( competition.competitors[0] != competition.competitors[1] ){
+					if( competition.competitors[0] > competition.competitors[1] ){
+						team = 1
+					}else{
+						team = 2
+					}
+				}
+			}
+
+			return team;
+
+		},
+
+		getScore: function( competition ){
+
+			score = {};
+			for( var x = 0; x <= competition.competitors.length - 1; x++ ){
+				if( competition.competitors[x].homeAway == "home" ){
+					score.home = competition.competitors[x].score
+				}
+				if( competition.competitors[x].homeAway == "away" ){
+					score.away = competition.competitors[x].score
+				}
+
+			}
+
+			diff = Math.abs(score.home - score.away);
+
+			diff = diff / 5;
+			diff = diff * 1000;
+			return diff;
 		}
 	}
 

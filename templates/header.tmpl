@@ -1,0 +1,4 @@
+ <div id="linescore" class="linescorebox ncb"><div class="clock">Final</div></div>
+  {{#each competitors}}
+		<div id="{{homeAway}}ScoreBox" class="{{#compare homeAway "away" operator="=="}}v{{/compare}}{{#compare homeAway "home" operator="=="}}h{{/compare}}scorebox"><div class="team-name {{#compare homeAway "away" operator="=="}}a{{/compare}}{{#compare homeAway "home" operator="=="}}v{{/compare}}teamname" style="background-color:#{{#team}}{{color}}{{/team}};">{{#team}}{{location}}{{/team}}</div><div class="score-info"><div class="team-logo {{#compare homeAway "away" operator="=="}}visitor{{/compare}}{{#compare homeAway "home" operator="=="}}home{{/compare}}"><div class="ncaa-logo"><img src="{{#logoContainer this size='medium'}} {{/logoContainer}}" width="40"></div></div><div class="score"><div class="rotatingScore">{{score}}</div></div></div></div>
+  {{/each}}
