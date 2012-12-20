@@ -26,7 +26,7 @@ sportName: "NCAA - Men's Basketball"
 		$(_data.myTeams).each(function(i, team) {
 			$(_sportsData || []).each(function(z, sport) {
 				$(sport.leagues || []).each(function(j, league) {
-					console.log((""+team.sportAbbrev).toLowerCase() + "==" +  (""+league.abbreviation).toLowerCase())
+			
 					if(league.id == team.sport && (""+league.abbreviation).toLowerCase() == (""+team.sportAbbrev).toLowerCase()) {
 						$(league.events || []).each(function(k, ev) {
 							$(ev.competitions || []).each(function(l, competition) {

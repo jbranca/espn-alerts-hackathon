@@ -23,6 +23,16 @@
 		}
 		
 	</style>
+	<script>
+	$(document).ready(function() {
+		$(".action-alerts a").on("click", function(event){
+			href = $(this).attr("href");
+			href = href + "?gameId=" + espnAlerts.getParameterByName("gameId") + "&sport=" + espnAlerts.getParameterByName("sportId") + "&league=" + espnAlerts.getParameterByName("league")
+
+			$(this).attr("href",href)
+		});
+	});
+	</script>
 	<body class="ncaa">
 	<div id="container"> 
 		<div id='nav'>
@@ -39,22 +49,17 @@
 			
 				<div id="header" style="height:72px;"></div>
 				<div class="container action-alerts">
-					<form method="POST" action="http://dl.dropbox.com/u/18906149/hackathon/espn-alerts-hackathon/vibrate.html?gameId=323412507">
-						<button type="submit" class="btn btn-large btn-primary">Pants</button>
-					</form>
-					<br>
-					<form method="POST" action="http://dl.dropbox.com/u/18906149/hackathon/espn-alerts-hackathon/flash.html?gameId=323412507">
-						<button type="submit" class="btn btn-large btn-warning">Flash</button>
-					</form>
-					<br>
-					<form method="POST" action="http://dl.dropbox.com/u/34718810/hackathon/pantsalerts/speech.html?gameId=323530152">
-						<button type="submit" class="btn btn-large btn-success">Speech</button>
-					</form>
-					<br>
-					<a href="social.php?gameId=323412507" class="btn btn-large btn-danger">Social</a>
+					 
+						<a href="http://ec2-72-44-62-42.compute-1.amazonaws.com/espn-alerts-hackathon/vibrate.html" class="btn btn-large btn-primary">Pants</a>
+					 
 					<br><br>
-
-					<img src="img/th_ehhh.jpg" alt="Ehhh"/>
+						<a href="http://ec2-72-44-62-42.compute-1.amazonaws.com/espn-alerts-hackathon/flash.html" class="btn btn-large btn-warning">Flash</a>
+				
+					<br><br>
+						<a href="http://ec2-72-44-62-42.compute-1.amazonaws.com/espn-alerts-hackathon/speech.html" class="btn btn-large btn-success">Speech</a>
+					<br><br>
+					<a href="social.php" class="btn btn-large btn-danger">Social</a>
+					
 
 				</div>
 				<script>
