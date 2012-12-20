@@ -48,7 +48,7 @@
 		<li class="nav-header">myTeams</li>
 		{{#if myGames}}
 			{{#each myGames}}
-				<li class='mygame'><a href="#">
+				<li class='mygame'><a href="mode-select.html?gameId={{id}}">
 				{{#each competitors}}
 					<div class='competitor'>
 						<img src="{{#logoContainer this sportAbbrev=../league.abbreviation size='medium'}} {{/logoContainer}}" />
@@ -78,8 +78,6 @@
 		{{/if}}
 
 	</ul>
-</script>
-<script id='nav-mygames-template' type="text/x-handlebars-template">
 </script>
 <script src="js/index.js"></script>
 </body>
