@@ -42,10 +42,35 @@ Handlebars.registerHelper("debug", function(optionalValue) {
 	console.log("end debug");
 });
 
-Handlebars.registerHelper("dateToDay", function(d) {
+function pants_parseDateNumber(numString) {
+      return parseInt(numString.replace(/^0/,''), 10);
+} 
+
+function pants_parseDateString(dateString) {
+      if (!dateString) {
+            return null;
+      }
+      var pubParts = dateString.split('T'),
+      dateParts = pubParts[0].split('-'),
+      timeParts = pubParts[1].replace(/Z\s*^/,'').split(':'),
+      out = new Date();
+      out.setUTCFullYear(pants_parseDateNumber(dateParts[0]));
+      out.setUTCMonth(pants_parseDateNumber(dateParts[1]) - 1);
+      out.setUTCDate(pants_parseDateNumber(dateParts[2]));
+      out.setUTCHours(pants_parseDateNumber(timeParts[0]));
+      out.setUTCMinutes(pants_parseDateNumber(timeParts[1]));
+      out.setUTCSeconds(pants_parseDateNumber(timeParts[2]));
+      return out;
+} 
+
+Handlebars.registerHelper("dateToDay", function(ds) {
 	var days={0:"Sun",1:"Mon",2:"Tue",3:"Wed",4:"Thu",5:"Fri",6:"Sat"};
+	var d = ds;
 	if(!(d instanceof Date)) {
-		d = new Date(d);
+		d = new Date(ds);
+	}
+	if(!d || !d.getTime || !d.getTime()) {
+		d = pants_parseDateString(ds);
 	}
 	var now = new Date().getTime();
 	if(d.getTime()-now>604800000){
@@ -54,9 +79,13 @@ Handlebars.registerHelper("dateToDay", function(d) {
 
 	return days[d.getDay()];
 });
-Handlebars.registerHelper("getTimefromDate", function(d, makeShorter) {
+Handlebars.registerHelper("getTimefromDate", function(ds, makeShorter) {
+	var d = ds;
 	if(!(d instanceof Date)) {
 		d = new Date(d);
+	}
+	if(!d || !d.getTime || !d.getTime()) {
+		d = pants_parseDateString(ds);
 	}
 	var militaryTime = false;
 	if(makeShorter===undefined){
@@ -160,60 +189,6 @@ Handlebars.registerHelper("replace", function(value, search, replacement) {
 Handlebars.registerHelper("toLowerCase", function(value) {
 	return (""+value).toLowerCase();
 });
-		Handlebars.registerHelper("dateToDay", function(d) {
-			var days={0:"Sun",1:"Mon",2:"Tue",3:"Wed",4:"Thu",5:"Fri",6:"Sat"};
-			if(!(d instanceof Date)) {
-				d = new Date(d);
-			}
-			var now = new Date().getTime();
-			if(d.getTime()-now>604800000){
-				return (d.getMonth()+1)+"/"+(d.getDate());
-			}
-
-			return days[d.getDay()];
-		});
-		Handlebars.registerHelper("getTimefromDate", function(d, makeShorter) {
-			if(!(d instanceof Date)) {
-				d = new Date(d);
-			}
-			var militaryTime = false;
-			if(makeShorter===undefined){
-				makeShorter = false;
-			}
-			var a_p = "";
-			var curr_hour = d.getHours();
-			if (curr_hour < 12){
-				a_p = "AM";
-				if(makeShorter){ a_p = 'a'; }
-			}
-			else{
-				a_p = "PM";
-				if(makeShorter){ a_p = 'p'; }
-			}
-			
-			if(militaryTime) {
-				if(curr_hour < 10) { curr_hour = "0"+curr_hour; }
-			}
-			else {
-				if (curr_hour === 0){ curr_hour = 12; }
-				else if (curr_hour > 12){ curr_hour = curr_hour - 12; }
-			}
-
-			var curr_min = d.getMinutes()+"";
-			if (curr_min.length == 1){
-				curr_min = "0" + curr_min;
-			}
-
-			var spacer = " ";
-			if(makeShorter){ spacer=''; }
-			
-			if(militaryTime) {
-				return curr_hour + ":" + curr_min;
-			}
-			else {
-				return curr_hour + ":" + curr_min + spacer + a_p;
-			}
-		});
 
 if( !window.Android ){
 	Android = { 
