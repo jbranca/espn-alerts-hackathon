@@ -49,14 +49,28 @@
 		{{#if myGames}}
 			{{#each myGames}}
 				<li class='mygame'><a href="mode-select.html?gameId={{id}}&sport={{sport.name}}&league={{league.abbreviation}}">
+					{{debug}}
 				{{#each competitors}}
-					<div class='competitor'>
-						<img src="{{#logoContainer this sportAbbrev=../league.abbreviation size='medium'}} {{/logoContainer}}" />
-						<span class='name'>{{team.abbreviation}}</span>
-						{{#if score}}
-							<span class='score'>{{score}}</span>
-						{{/if}}
-					</div>
+					{{#compare homeAway "away" operator="=="}}
+						<div class='competitor'>
+							<img src="{{#logoContainer this sportAbbrev=../../league.abbreviation size='medium'}} {{/logoContainer}}" />
+							<span class='name'>{{team.abbreviation}}</span>
+							{{#if score}}
+								<span class='score'>{{score}}</span>
+							{{/if}}
+						</div>
+					{{/compare}}
+				{{/each}}
+				{{#each competitors}}
+					{{#compare homeAway "home" operator="=="}}
+						<div class='competitor'>
+							<img src="{{#logoContainer this sportAbbrev=../../league.abbreviation size='medium'}} {{/logoContainer}}" />
+							<span class='name'>{{team.abbreviation}}</span>
+							{{#if score}}
+								<span class='score'>{{score}}</span>
+							{{/if}}
+						</div>
+					{{/compare}}
 				{{/each}}
 
 				<div class='status'>
