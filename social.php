@@ -42,6 +42,7 @@ if ($facebookUser) {
 		<script type="text/javascript">
 			$(document).ready(function() {
 
+				espnAlerts.init();
 				var loggedInFacebook = <?php echo $facebookUser; ?> > 0;
 				var teamWinning = null;
 
@@ -55,8 +56,17 @@ if ($facebookUser) {
 					})
 				}
 
+				function ordinal(number)
+				{
+					var s=["th","st","nd","rd"],
+					v=number%100;
+					return number+(s[(v-20)%10]||s[v]||s[0]);
+				}
+
 				$.subscribe("/score/update", function( e, data ) {
 					if (loggedInFacebook == true) {
+						currentScore = espnAlerts.getCurrentScore( data )
+
 						description = '';
 
 						homeTeam = data.competitors[0].team;
@@ -71,7 +81,7 @@ if ($facebookUser) {
 							teamWinning = homeTeam.id;
 							postDescription = true;
 							description = homeTeam.location + ' ' + homeTeam.name
-								+ ' has taken the lead over ' + awayTeam.location
+								+ ' have taken the lead over the ' + awayTeam.location
 								+ ' ' + awayTeam.name + ' ' + homeScore
 								+ ' - ' + awayScore;
 						} else if (awayScore > homeScore
@@ -79,12 +89,15 @@ if ($facebookUser) {
 							teamWinning = awayTeam.id;
 							postDescription = true;
 							description = awayTeam.location + ' ' + awayTeam.name
-								+ ' has taken the lead over ' + homeTeam.location
+								+ ' have taken the lead over the ' + homeTeam.location
 								+ ' ' + homeTeam.name + ' ' + awayScore
 								+ ' - ' + homeScore;
 						}
 
 						if (postDescription == true) {
+							description += ' with ' + data.clock + ' left in '
+								+ ordinal(currentScore.period) + ' Quarter';
+
 							postFacebookWall(description);
 						}
 					}
