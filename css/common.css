@@ -155,3 +155,7 @@ top: 30px;
 #header { border-bottom: 1px solid #AAA; margin-bottom: 10px; padding-bottom: 4px }
 .score { padding: 0px 4px }
 .action-alerts { text-align: center;  }
+.vmiddle { vertical-align: middle }
+.mod-head { margin-bottom: 8px }
+.mod-content { line-height: 20px }
+.mod-content img { padding: 5px 2px }
