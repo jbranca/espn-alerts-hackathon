@@ -64,44 +64,52 @@ if ($facebookUser) {
 				}
 
 				$.subscribe("/score/update", function( e, data ) {
-					if (loggedInFacebook == true) {
-						currentScore = espnAlerts.getCurrentScore( data )
+					currentScore = espnAlerts.getCurrentScore( data )
 
-						description = '';
+					description = '';
 
-						homeTeam = data.competitors[0].team;
-						awayTeam = data.competitors[1].team;
-						homeScore = data.competitors[0].score;
-						awayScore = data.competitors[1].score;
+					homeTeam = data.competitors[0].team;
+					awayTeam = data.competitors[1].team;
+					homeScore = data.competitors[0].score;
+					awayScore = data.competitors[1].score;
 
-						postDescription = false;
+					postDescription = false;
 
-						if (homeScore > awayScore
-								&& homeTeam.id != teamWinning) {
-							teamWinning = homeTeam.id;
-							postDescription = true;
-							description = homeTeam.location + ' ' + homeTeam.name
-								+ ' have taken the lead over the ' + awayTeam.location
-								+ ' ' + awayTeam.name + ' ' + homeScore
-								+ ' - ' + awayScore;
-						} else if (awayScore > homeScore
-								&& awayTeam.id != teamWinning) {
-							teamWinning = awayTeam.id;
-							postDescription = true;
-							description = awayTeam.location + ' ' + awayTeam.name
-								+ ' have taken the lead over the ' + homeTeam.location
-								+ ' ' + homeTeam.name + ' ' + awayScore
-								+ ' - ' + homeScore;
-						}
+					if (homeScore > awayScore
+							&& homeTeam.id != teamWinning) {
+						teamWinning = homeTeam.id;
+						postDescription = true;
+						description = homeTeam.location + ' ' + homeTeam.name
+							+ ' have taken the lead over the ' + awayTeam.location
+							+ ' ' + awayTeam.name + ' ' + homeScore
+							+ ' - ' + awayScore;
+					} else if (awayScore > homeScore
+							&& awayTeam.id != teamWinning) {
+						teamWinning = awayTeam.id;
+						postDescription = true;
+						description = awayTeam.location + ' ' + awayTeam.name
+							+ ' have taken the lead over the ' + homeTeam.location
+							+ ' ' + homeTeam.name + ' ' + awayScore
+							+ ' - ' + homeScore;
+					}
 
-						if (postDescription == true) {
-							description += ' with ' + data.clock + ' left in '
-								+ ordinal(currentScore.period) + ' Quarter';
+					if (postDescription == true) {
+						description += ' with ' + data.clock + ' left in '
+							+ ordinal(currentScore.period) + ' Quarter';
 
+						if (loggedInFacebook == true) {
 							postFacebookWall(description);
-
-							$('.twitter-share-button').attr('data-text', description);
 						}
+
+						currentHref = $('.twitter-share-btn').attr('href');
+						textPos = currentHref.indexOf('text=');
+						ampersandPos = currentHref.indexOf('&', textPos);
+
+						url = currentHref.substr(0, textPos) + 'text='
+							+ escape(description) + '&' + currentHref.substr(ampersandPos);
+
+						$('.twitter-share-btn').attr('href', url);
+
 					}
 				});
 
@@ -150,9 +158,10 @@ if ($facebookUser) {
 								<?php endif; ?>
 								</div>
 								<div style="margin-top: 15px;">
-									<a href="https://twitter.com/share" class="twitter-share-button" data-lang="en" data-count="none" data-size="large">Tweet Last</a>
+									<a class="twitter-share-btn" style="cursor:pointer;" href="https://twitter.com/intent/tweet?original_referer=http%3A%2F%2Fec2-72-44-62-42.compute-1.amazonaws.com%2Fespn-alerts-hackathon%2Fsocial.php%3FgameId%3D400278087%26sport%3D%26league%3Dnba&text=test&tw_p=tweetbutton&url=http%3A%2F%2Fec2-72-44-62-42.compute-1.amazonaws.com%2Fespn-alerts-hackathon%2Fsocial.php%3FgameId%3D400278087%26sport%3D%26league%3Dnba" target="_blank">
+										<img src="image/tweet_btn.png">
+									</a>
 								</div>
-								<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 							</form>
 						</div>
 					</div>
