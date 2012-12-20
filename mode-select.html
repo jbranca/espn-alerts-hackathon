@@ -1,14 +1,15 @@
 <html>
 	<head>
 		<title>Alerts 2.0</title>
-	<link href="vendor/bootstrap-2.2.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<link rel='stylesheet' href='vendor/bootstrap-2.2.2/css/bootstrap-responsive.min.css'/>
-	 <link rel='stylesheet' href='css/common.css'>
-	<script src="vendor/js/handlebars-1.0.rc.1.js" type="text/javascript"></script>
-	<script type="text/javascript" src="vendor/jquery-1.8.3.min.js"></script>
-	<script src="vendor/js/jquery.pubsub.js" type="text/javascript"></script>
-	<script src="js/common.js" type="text/javascript"></script>
-	<script src="js/scoreUpdater.js" type="text/javascript"></script>
+		<link href="vendor/bootstrap-2.2.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<link rel='stylesheet' href='vendor/bootstrap-2.2.2/css/bootstrap-responsive.min.css'/>
+		<link rel='stylesheet' href='css/common.css'>
+		<link rel='stylesheet' href='http://a.espncdn.com/combiner/c?v=52&css=m/reset.css,m/fonts.css,m/base.css,m/layout/body.css,m/layout/navigation.css'/>
+		<script src="vendor/js/handlebars-1.0.rc.1.js" type="text/javascript"></script>
+		<script type="text/javascript" src="vendor/jquery-1.8.3.min.js"></script>
+		<script src="vendor/js/jquery.pubsub.js" type="text/javascript"></script>
+		<script src="js/common.js" type="text/javascript"></script>
+		<script src="js/scoreUpdater.js" type="text/javascript"></script>
 		<script>
 			var gameId = (window.location.href.match(/[\?&]gameId=(\d+)/) || []).pop();
 		</script>
@@ -19,35 +20,53 @@
 		}
 	</style>
 	<body class="ncaa">
-		<div id="header" style="height:72px;"></div>
-		<div class="container">
-			<form method="POST" action="http://dl.dropbox.com/u/18906149/hackathon/espn-alerts-hackathon/vibrate.html?gameId=323412507">
-				<button type="submit" class="btn btn-large btn-primary">Pants</button>
-			</form>
-			<form method="POST" action="http://dl.dropbox.com/u/18906149/hackathon/espn-alerts-hackathon/flash.html?gameId=323412507">
-				<button type="submit" class="btn btn-large btn-warning">Flash</button>
-			</form>
-			<form method="POST" action="http://dl.dropbox.com/u/34718810/hackathon/pantsalerts/speech.html?gameId=323530152">
-				<button type="submit" class="btn btn-large btn-success">Speech</button>
-			</form>
-			<a href="social.php?gameId=323412507" class="btn btn-large btn-danger">Social</a>
-			<br><br>
-		</div>
-		<script>
-			Array.prototype.slice.apply(document.getElementsByTagName("form")).forEach(function(form) {
-				var action = form.action.replace(/gameId=(\d+)&?/,'').replace(/#.*$/,'');
-				if(!action.match(/\?/)) {
-					action += "?";
-				}
-				var urlParser = document.createElement('a');
-				urlParser.href = window.location.href;
-				action += (urlParser.search || "").replace(/^\?/,'');
-				form.action = action;
-			});
-		</script>
-
-		<div class="container">
-			<img src="img/th_ehhh.jpg" alt="Ehhh"/>
+	<div id="container"> 
+		<div id='nav'>
+			<nav id="nav-bd">
+				<ul>
+					<li><a class="espnlogo" href="/wireless/"><h1 class="nav-title">ESPN</h1></a>
+					</li>
+					<li class="sport-title"><a class="ellipsis" href="/ncb/"><strong>Alerts 2.0</strong></a></li>
+				</ul>
+			</nav>
+		</div>	
+		<div id="content" class="clearfix"> 
+			<div class="left-column-wrap col"><div id='left-column' class='col'>
+			
+				<div id="header" style="height:72px;"></div>
+				<div class="container">
+					<form method="POST" action="http://dl.dropbox.com/u/18906149/hackathon/espn-alerts-hackathon/vibrate.html?gameId=323412507">
+						<button type="submit" class="btn btn-large btn-primary">Pants</button>
+					</form>
+					<br>
+					<form method="POST" action="http://dl.dropbox.com/u/18906149/hackathon/espn-alerts-hackathon/flash.html?gameId=323412507">
+						<button type="submit" class="btn btn-large btn-warning">Flash</button>
+					</form>
+					<br>
+					<form method="POST" action="http://dl.dropbox.com/u/34718810/hackathon/pantsalerts/speech.html?gameId=323530152">
+						<button type="submit" class="btn btn-large btn-success">Speech</button>
+					</form>
+					<br>
+					<a href="social.php?gameId=323412507" class="btn btn-large btn-danger">Social</a>
+					<br><br>
+				</div>
+				<script>
+					Array.prototype.slice.apply(document.getElementsByTagName("form")).forEach(function(form) {
+						var action = form.action.replace(/gameId=(\d+)&?/,'').replace(/#.*$/,'');
+						if(!action.match(/\?/)) {
+							action += "?";
+						}
+						var urlParser = document.createElement('a');
+						urlParser.href = window.location.href;
+						action += (urlParser.search || "").replace(/^\?/,'');
+						form.action = action;
+					});
+				</script>
+		
+				<div class="container">
+					<img src="img/th_ehhh.jpg" alt="Ehhh"/>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
