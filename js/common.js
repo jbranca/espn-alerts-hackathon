@@ -156,6 +156,10 @@ var espnAlerts = (function () {
 		cameraTorchOn: false,
 		firstTime: true,
 		alertsEnabled: true,
+		playIndex: 0,
+		playIncrement: 5,
+		isReplay: true,
+
 		getHeaderTemplate: function(){
 			return headerTemplate;
 		},
@@ -223,8 +227,7 @@ var espnAlerts = (function () {
 			});
 			Android.vibrate(pattern, -1); // -1 means do not repeat
 		},
-//url: 'http://dev.espn.go.com/allsports/apis/v1/sports/basketball/mens-college-basketball/events' + espnAlerts.getParameterByName("gameId") + '/?apiKey=' + apiKey,
-		            
+	            
 		getScoreUpdate:function(){
 			sport = espnAlerts.getParameterByName("sport")
 			if( !sport ){
@@ -234,8 +237,11 @@ var espnAlerts = (function () {
 			if( !league ){
 				league = "mens-college-basketball"
 			}
+			//league = "nba"
+			gameId= espnAlerts.getParameterByName("gameId")
+
 			 $.ajax({
-		            url: 'http://api.espn.com/v1/sports/' + sport + '/' + league + '/events/' + espnAlerts.getParameterByName("gameId") + '/?apiKey=' + apiKey,
+		            url: 'http://api.espn.com/v1/sports/' + sport + '/' + league + '/events/' + gameId + '/?apiKey=' + apiKey,
 		            jsonpCallback: 'Test',
 		            cache: false,
 		            dataType: 'jsonp',
@@ -269,6 +275,7 @@ var espnAlerts = (function () {
 		            							espnAlerts.firstTime = false
 		            						}
 		            						$.publish("/score/update", gameEvent.competitions);
+		            						espnAlerts.playIndex  = espnAlerts.playIndex + espnAlerts.playIncrement;
 		            					}
 		            				}
 			            		} 
@@ -282,32 +289,53 @@ var espnAlerts = (function () {
 		getTeam: function( competition ){
 
 			team = 0;
-			if( competition.competitors.length == 2 ){
-				if( competition.competitors[0] != competition.competitors[1] ){
-					if( competition.competitors[0] > competition.competitors[1] ){
-						team = 1
-					}else{
-						team = 2
-					}
+			score = {};
+			score = espnAlerts.getCurrentScore( competition );
+
+			if( score.away != score.home ){
+				if( score.away > score.home ){
+					team = 1
+				}else{
+					team = 2
 				}
 			}
+			 
 
 			return team;
 
 		},
 
+		getCurrentScore: function( competition ){
+			score = {};
+			if( ! espnAlerts.isReplay ){
+				
+				for( var x = 0; x <= competition.competitors.length - 1; x++ ){
+					if( competition.competitors[x].homeAway == "home" ){
+						score.home = competition.competitors[x].score
+					}
+					if( competition.competitors[x].homeAway == "away" ){
+						score.away = competition.competitors[x].score
+					}
+
+				}
+			}else{
+				//console.log( "index:" + espnAlerts.playIndex)
+				
+				if( competition.details.length >= espnAlerts.playIndex ){
+					play = competition.details[ espnAlerts.playIndex ];
+					if( play ){
+						score = { home: play.homeScore, away: play.awayScore }
+					}
+				}
+			}
+
+			return score;
+		},
+
 		getScore: function( competition ){
 
-			score = {};
-			for( var x = 0; x <= competition.competitors.length - 1; x++ ){
-				if( competition.competitors[x].homeAway == "home" ){
-					score.home = competition.competitors[x].score
-				}
-				if( competition.competitors[x].homeAway == "away" ){
-					score.away = competition.competitors[x].score
-				}
-
-			}
+			score = espnAlerts.getCurrentScore( competition );
+			
 
 			diff = Math.abs(score.home - score.away);
 
