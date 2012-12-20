@@ -405,7 +405,7 @@ var espnAlerts = (function () {
 				if( competition.details.length >= espnAlerts.playIndex ){
 					play = competition.details[ espnAlerts.playIndex ];
 					if( play ){
-						score = { home: play.homeScore, away: play.awayScore }
+						score = { home: play.homeScore, away: play.awayScore, clock: play.clock }
 					}
 				}
 			}

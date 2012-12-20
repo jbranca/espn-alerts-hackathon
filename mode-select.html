@@ -1,8 +1,13 @@
 <html>
 	<head>
 		<title>Alerts 2.0</title>
-		<link href="vendor/bootstrap-2.2.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="vendor/jquery-1.8.3.min.js"></script>
+	<link href="vendor/bootstrap-2.2.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	 <link rel='stylesheet' href='css/common.css'>
+	<script src="vendor/js/handlebars-1.0.rc.1.js" type="text/javascript"></script>
+	<script type="text/javascript" src="vendor/jquery-1.8.3.min.js"></script>
+	<script src="vendor/js/jquery.pubsub.js" type="text/javascript"></script>
+	<script src="js/common.js" type="text/javascript"></script>
+	<script src="js/scoreUpdater.js" type="text/javascript"></script>
 		<script>
 			var gameId = (window.location.href.match(/[\?&]gameId=(\d+)/) || []).pop();
 		</script>
@@ -12,7 +17,8 @@
 			font-size:20px;
 		}
 	</style>
-	<body>
+	<body class="ncaa">
+		<div id="header" style="height:72px;"></div>
 		<div class="container">
 			<form method="POST" action="http://dl.dropbox.com/u/18906149/hackathon/espn-alerts-hackathon/vibrate.html?gameId=323412507">
 				<button type="submit" class="btn btn-large btn-primary">Pants</button>
