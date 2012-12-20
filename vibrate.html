@@ -58,6 +58,11 @@ $(document).ready(function() {
 		}
 	});
 
+	$.subscribe("/score/periodChange", function( e, obj ) {
+		console.log("PERIOD CHANGE");
+		console.log( obj )
+	});
+	
 	$("#alerts-toggle").click(function() {
 		espnAlerts.toggleAlerts();
 
@@ -84,7 +89,7 @@ $(document).ready(function() {
 
 
 <div class="score-instructions score-instructions-basketball">
-<h5>Alert every 10 seconds of the Game Time</h5>
+<div class="alert alert-success">Alert every 10 seconds of the Game Time</div>
 
 <div>1 Second = 0-5 point lead</div>
 <div>2 Seconds = 6-10 point lead</div>
