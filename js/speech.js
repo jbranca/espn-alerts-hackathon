@@ -315,6 +315,9 @@
 		playText = playText.replace("9th", "ninth");
 		playText = playText.replace("End Game", "Game over");
 		playText = playText.replace("End of Game", "Game over");
+		
+		playText = playText + ", , , ,";
+		
 		return playText;
 	}
 })(jQuery);
