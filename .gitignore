@@ -1,9 +1,5 @@
-android-app/bin/AndroidManifest.xml
-android-app/bin/AndroidManifest.xml.d
-android-app/bin/PantsAlerts.ap_
-android-app/bin/build.prop
-android-app/bin/classes.dex
-android-app/bin/classes.dex.d
-android-app/bin/classes/*/*
+android-app/bin/*
+!android/bin/PantsAlerts-debug.apk
+!android/bin/PantsAlerts-debug-unaligned.apk
 android-app/gen/R.java.d
 android-app/local.properties

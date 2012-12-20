@@ -184,7 +184,7 @@
 				awayScore = newAwayScore;
 				
 				isScoringPlay = true;
-			} else if(mins === 0 && secs === 0) {
+			} else if(mins === 0 && secs === 0 && isEndOfGame({period:period, league:sportAbbrev})) {
 				// winning text
 				var winningText = homeTeamNickname;
 				if(newAwayScore > newHomeScore) {
@@ -265,11 +265,11 @@
 		var clockText = "";
 		
 		if(mins > 0) {
-			clockText += mins + ((mins === 1) ? "minute " : " minutes ")
+			clockText += mins + ((mins === 1) ? "minute " : " minutes ");
 		}
 		
 		if(secs > 0) {
-			clockText += secs + " seconds "
+			clockText += secs + ((secs === 1) ? " second " : " seconds ");
 		}
 		
 		if(mins > 0 || secs > 0) {
@@ -287,6 +287,19 @@
 		}
 		
 		return clockText;
+	}
+	
+	function isEndOfGame(obj) {
+		var league = obj.league;
+		var period = obj.period;
+		
+		if(league == "mens-college-basketball") {
+			return (period >= 2 && homeScore != awayScore);
+		} else if(league == "nba") {
+			return (period >= 4 && homeScore != awayScore);
+		}
+		
+		return false;
 	}
 	
 	function getTextToSpeak(playText) {
