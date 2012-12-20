@@ -49,7 +49,6 @@
 		{{#if myGames}}
 			{{#each myGames}}
 				<li class='mygame'><a href="mode-select.html?gameId={{id}}&sport={{sport.name}}&league={{league.abbreviation}}">
-					{{debug}}
 				{{#each competitors}}
 					{{#compare homeAway "away" operator="=="}}
 						<div class='competitor'>
