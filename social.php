@@ -43,6 +43,7 @@ if ($facebookUser) {
 			$(document).ready(function() {
 
 				var loggedInFacebook = <?php echo $facebookUser; ?> > 0;
+				var teamWinning = null;
 
 				function postFacebookWall(message)
 				{
@@ -56,7 +57,34 @@ if ($facebookUser) {
 
 				$.subscribe("/score/update", function( e, data ) {
 					if (loggedInFacebook == true) {
-						// postFacebookWall('');
+						description = '';
+
+						homeTeam = data.competitors[0].team;
+						awayTeam = data.competitors[1].team;
+
+						postDescription = false;
+
+						if (homeTeam.score > awayTeam.score
+								&& homeTeam.id != teamWinning) {
+							teamWinning = homeTeam.id;
+							postDescription = true;
+							description = homeTeam.location + ' ' + homeTeam.name
+								+ ' has taken the lead over ' + awayTeam.location
+								+ ' ' + awayTeam.name + ' ' + homeTeam.score
+								+ ' - ' + awayTeam.score;
+						} else if (awayTeam.score > homeTeam.score
+								&& awayTeam.id != teamWinning) {
+							teamWinning = awayTeam.id;
+							postDescription = true;
+							description = awayTeam.location + ' ' + awayTeam.name
+								+ ' has taken the lead over ' + homeTeam.location
+								+ ' ' + homeTeam.name + ' ' + awayTeam.score
+								+ ' - ' + homeTeam.score;
+						}
+
+						if (postDescription == true) {
+							postFacebookWall(description);
+						}
 					}
 				});
 
@@ -70,7 +98,7 @@ if ($facebookUser) {
 							+ ' ' + competition.competitors[0].team.name
 							+ ' game';
 
-						postFacebookWall(description);
+						// postFacebookWall(description);
 					}
 				});
 			});
