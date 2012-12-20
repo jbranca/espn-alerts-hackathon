@@ -1,0 +1,42 @@
+<html>
+	<head>
+		<title>Alerts 2.0</title>
+		<link href="vendor/bootstrap-2.2.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="vendor/jquery-1.8.3.min.js"></script>
+		<script>
+			var gameId = (window.location.href.match(/[\?&]gameId=(\d+)/) || []).pop();
+		</script>
+	</head>
+	<style>
+		body{
+			font-size:20px;
+		}
+	</style>
+	<body>
+		<div class="container">
+			<form method="POST" action="http://dl.dropbox.com/u/18906149/hackathon/espn-alerts-hackathon/vibrate.html?gameId=323412507">
+				<button type="submit" class="btn btn-large btn-primary">Pants</button>
+			</form>
+			<form method="POST" action="http://dl.dropbox.com/u/18906149/hackathon/espn-alerts-hackathon/flash.html?gameId=323412507">
+				<button type="submit" class="btn btn-large btn-warning">Flash</button>
+			</form>
+			<form method="POST" action="http://dl.dropbox.com/u/34718810/hackathon/pantsalerts/speech.html?gameId=323530152">
+				<button type="submit" class="btn btn-large btn-success">Speech</button>
+			</form>
+			<form method="GET" action="ifttt/index.php">
+				<button type="submit" class="btn btn-large btn-danger">IFTTT</button>
+			</form>
+		</div>
+		<script>
+			Array.prototype.slice.apply(document.getElementsByTagName("form")).forEach(function(form) {
+				var action = form.action.replace(/gameId=(\d+)&?/,'');
+				action += "&gameId=" + gameId;
+				form.action = action;
+			});
+		</script>
+
+		<div class="container">
+			<img src="img/th_ehhh.jpg" alt="Ehhh"/>
+		</div>
+	</body>
+</html>
