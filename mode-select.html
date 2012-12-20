@@ -29,8 +29,13 @@
 		</div>
 		<script>
 			Array.prototype.slice.apply(document.getElementsByTagName("form")).forEach(function(form) {
-				var action = form.action.replace(/gameId=(\d+)&?/,'');
-				action += "&gameId=" + gameId;
+				var action = form.action.replace(/gameId=(\d+)&?/,'').replace(/#.*$/,'');
+				if(!action.match(/\?/)) {
+					action += "?";
+				}
+				var urlParser = document.createElement('a');
+				urlParser.href = window.location.href;
+				action += (urlParser.search || "").replace(/^\?/,'');
 				form.action = action;
 			});
 		</script>
