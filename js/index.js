@@ -9,7 +9,8 @@
 			templateData = {},
 			templateSource = $('#nav-list-template').html(),
 			template = Handlebars.compile(templateSource),
-			myGames = [];
+			myGames = [],
+			seenGames = {};
 
 		$.extend(true, templateData, _data);
 
@@ -21,10 +22,13 @@
 							$(ev.competitions || []).each(function(l, competition) {
 								$(competition.competitors || []).each(function(m, competitor) {
 									if((competitor.team || {}).id == team.id) {
-										var myGame = {};
-										$.extend(true, myGame, competition);
-										myGame.league = league;
-										myGames.push(myGame);				
+										if(!seenGames[competition.id]) { 
+											var myGame = {};
+											$.extend(true, myGame, competition);
+											myGame.league = league;
+											myGames.push(myGame);				
+											seenGames[competition.id] = true;
+										}
 										return false; //break loop
 									}
 								});
