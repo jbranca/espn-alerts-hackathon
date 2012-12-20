@@ -116,7 +116,7 @@ Handlebars.registerHelper("collegeSportAbbrev", function(sportId) {
 Handlebars.registerHelper("logoContainer", function(teamObjApi, options) {
 	teamObj = teamObjApi.team;
 	var sportId = parseInt(teamObj.sport, 10),
-		sportAbbrev = (""+teamObjApi.sportAbbrev).toLowerCase(),
+		sportAbbrev = (""+(options.hash.sportAbbrev || teamObjApi.sportAbbrev)).toLowerCase(),
 
 		teamId = parseInt(teamObj.id, 10),
 		teamName = teamObj.text,

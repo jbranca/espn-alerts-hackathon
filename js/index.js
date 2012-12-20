@@ -10,7 +10,7 @@
 			template = Handlebars.compile(templateSource),
 			myGames = [];
 
-		$.merge(true, templateData, _data);
+		$.extend(true, templateData, _data);
 
 		$(_data.myTeams).each(function(i, team) {
 			$(_sportsData || []).each(function(z, sport) {
@@ -20,7 +20,10 @@
 							$(ev.competitions || []).each(function(l, competition) {
 								$(competition.competitors || []).each(function(m, competitor) {
 									if((competitor.team || {}).id == team.id) {
-										myGames.push(competition);				
+										var myGame = {};
+										$.extend(true, myGame, competition);
+										myGame.league = league;
+										myGames.push(myGame);				
 										return false; //break loop
 									}
 								});
