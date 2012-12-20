@@ -240,7 +240,7 @@ var espnAlerts = (function () {
 		playIndex: 0,
 		playIncrement: 5,
 		isReplay: true,
-
+		lastPeriod: 0,
 		getHeaderTemplate: function(){
 			return headerTemplate;
 		},
@@ -278,7 +278,7 @@ var espnAlerts = (function () {
 			var myVar=setInterval(
 				function(){
 					espnAlerts.getScoreUpdate()
-				},10000);
+				},15000);
 			 
 		},
 
@@ -405,7 +405,11 @@ var espnAlerts = (function () {
 				if( competition.details.length >= espnAlerts.playIndex ){
 					play = competition.details[ espnAlerts.playIndex ];
 					if( play ){
-						score = { home: play.homeScore, away: play.awayScore, clock: play.clock }
+						score = { home: play.homeScore, away: play.awayScore, clock: play.clock, period: play.period }
+						if( espnAlerts.lastPeriod != 0 && play.period != espnAlerts.lastPeriod){
+							 $.publish("/score/periodChange", {"period":play.period});
+						}
+						espnAlerts.lastPeriod = play.period;
 					}
 				}
 			}
