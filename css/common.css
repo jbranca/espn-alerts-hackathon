@@ -149,3 +149,9 @@ top: 30px;
 #nav-bd ul li.sport-title { width: 73% }		
 #nav { margin-bottom: 4px }
 .competitor, .competitor img { vertical-align: middle }
+.hscorebox { top: 54px; }
+#header .team-name { font-size: 14px }		
+#header .clock { line-height: 36px }
+#header { border-bottom: 1px solid #AAA; margin-bottom: 10px; padding-bottom: 4px }
+.score { padding: 0px 4px }
+.action-alerts { text-align: center;  }

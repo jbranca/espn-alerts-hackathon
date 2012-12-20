@@ -1,6 +1,9 @@
 <html>
 	<head>
 		<title>Alerts 2.0</title>
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="MobileOptimized" content="320"/>
+		<meta name="viewport" id="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 		<link href="vendor/bootstrap-2.2.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 		<link rel='stylesheet' href='vendor/bootstrap-2.2.2/css/bootstrap-responsive.min.css'/>
 		<link rel='stylesheet' href='css/common.css'>
@@ -18,6 +21,7 @@
 		body{
 			font-size:20px;
 		}
+		
 	</style>
 	<body class="ncaa">
 	<div id="container"> 
@@ -34,7 +38,7 @@
 			<div class="left-column-wrap col"><div id='left-column' class='col'>
 			
 				<div id="header" style="height:72px;"></div>
-				<div class="container">
+				<div class="container action-alerts">
 					<form method="POST" action="http://dl.dropbox.com/u/18906149/hackathon/espn-alerts-hackathon/vibrate.html?gameId=323412507">
 						<button type="submit" class="btn btn-large btn-primary">Pants</button>
 					</form>
@@ -49,6 +53,9 @@
 					<br>
 					<a href="social.php?gameId=323412507" class="btn btn-large btn-danger">Social</a>
 					<br><br>
+
+					<img src="img/th_ehhh.jpg" alt="Ehhh"/>
+
 				</div>
 				<script>
 					Array.prototype.slice.apply(document.getElementsByTagName("form")).forEach(function(form) {
@@ -63,9 +70,6 @@
 					});
 				</script>
 		
-				<div class="container">
-					<img src="img/th_ehhh.jpg" alt="Ehhh"/>
-				</div>
 			</div>
 		</div>
 	</body>
