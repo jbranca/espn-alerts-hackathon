@@ -212,7 +212,7 @@ var espnAlerts = (function () {
 		cameraTorchOn: false,
 		firstTime: true,
 		alertsEnabled: true,
-		playIndex: 0,
+		playIndex: 5,
 		playIncrement: 5,
 		isReplay: true,
 		lastPeriod: 0,
@@ -253,7 +253,7 @@ var espnAlerts = (function () {
 			var myVar=setInterval(
 				function(){
 					espnAlerts.getScoreUpdate()
-				},20000);
+				},15000);
 			 
 		},
 
