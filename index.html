@@ -10,6 +10,7 @@
 	<link rel='stylesheet' href='vendor/bootstrap-2.2.2/css/bootstrap.min.css'/>
 	<link rel='stylesheet' href='vendor/bootstrap-2.2.2/css/bootstrap-responsive.min.css'/>
 	<link rel='stylesheet' href='css/common.css'/>
+	<link rel='stylesheet' href='http://a.espncdn.com/combiner/c?v=52&css=m/reset.css,m/fonts.css,m/base.css,m/layout/body.css,m/layout/navigation.css'/>
 	<style type='text/css'>
 		#nav-list-container { overflow: hidden; padding: 0; }
 		#nav-list-container .nav-header {
@@ -19,7 +20,7 @@
 			background: linear-gradient(top,#bc2026 0,#8d181b 50%,#670d0d 100%);
 			color: #FFF;
 		}
-		.nav-list .mygame { float: left; clear: both; margin: 0 0 10px 0; width: 100%; border-bottom: 1px solid #FFF; }
+		.nav-list .mygame { float: left; clear: both; margin: 0; width: 100%; border-bottom: 1px solid #FFF; }
 		.nav-list .mygame:last-of-type { border-bottom: 0; }
 		.nav-list .mygame > a { padding: 13px 8px; display: block; overflow: hidden; }
 		.nav-list .mygame .competitor { width: 82px; float: left; margin: 0 10px 0 0; line-height: 25px; }
@@ -40,6 +41,15 @@
 </head>
 <body>
 <div class='container'>
+	<div id='nav'>
+		<nav id="nav-bd">
+			<ul>
+				<li><a class="espnlogo" href="/wireless/"><h1 class="nav-title">ESPN</h1></a>
+				</li>
+				<li class="sport-title"><a class="ellipsis" href="/ncb/"><strong>Alerts 2.0</strong></a></li>
+			</ul>
+		</nav>
+	</div>
 	<div id='nav-list-container' class='well'></div>
 </div>
 
@@ -49,7 +59,6 @@
 		{{#if myGames}}
 			{{#each myGames}}
 				<li class='mygame'><a href="mode-select.html?gameId={{id}}&sport={{sport.name}}&league={{league.abbreviation}}">
-					{{debug}}
 				{{#each competitors}}
 					{{#compare homeAway "away" operator="=="}}
 						<div class='competitor'>

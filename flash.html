@@ -24,22 +24,25 @@ $(document).ready(function() {
 
 	$.subscribe("/score/update", function( e, data ) {
 	  
-	  team = espnAlerts.getTeam( data )
-	  
-	  //Check if Tie, only buzz one second
-	  if( team == 0 ){
-	  		espnAlerts.doFlash( 2, 1000, 2000 )
-	  }else{ 
-		  if( team == 1 ){
-		  	espnAlerts.doFlash( 1, 500, 100 )
-		  }else if( team == 2 ){
-		  	espnAlerts.doFlash( 2, 500, 100 )
-		  }
-	 
-		  setTimeout( function(){	
-				espnAlerts.doFlash( 1, 1000, espnAlerts.getScore( data ) )
-			}, 2000 )
-	 }
+	  if( espnAlerts.getAlertsEnabled() ){
+
+		  team = espnAlerts.getTeam( data )
+		  
+		  //Check if Tie, only buzz one second
+		  if( team == 0 ){
+		  		espnAlerts.doFlash( 2, 1000, 2000 )
+		  }else{ 
+			  if( team == 1 ){
+			  	espnAlerts.doFlash( 1, 500, 100 )
+			  }else if( team == 2 ){
+			  	espnAlerts.doFlash( 2, 500, 100 )
+			  }
+		 
+			  setTimeout( function(){	
+					espnAlerts.doFlash( 1, 1000, espnAlerts.getScore( data ) )
+				}, 2000 )
+		 }
+	}
 	  
 	});
 
@@ -54,6 +57,14 @@ $(document).ready(function() {
 			}
 			el.html( teamName);
 		}
+	});
+
+	$("#alerts-toggle").click(function() {
+		espnAlerts.toggleAlerts();
+
+		$("#alerts-toggle").toggleClass("btn-danger").toggleClass("btn-success");
+  
+		$("#alerts-toggle").html( ( ( $("#alerts-toggle").html() == "Stop" ) ? "Start": "Stop" ) )
 	});
 });
 
