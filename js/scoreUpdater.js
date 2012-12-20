@@ -16,6 +16,11 @@ $(document).ready(function() {
 				}
 
 			}
+ 
+			if( espnAlerts.isReplay ){
+				data.clock = currentScore.clock
+				data.status.detail = currentScore.clock
+			}
 			
 		   $("#header").html( template( data ) )
 		});
