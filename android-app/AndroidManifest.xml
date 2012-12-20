@@ -4,7 +4,10 @@
       android:versionCode="1"
 	  android:versionName="1.0"
 	  android:installLocation="preferExternal">
-    <application android:label="@string/app_name" android:icon="@drawable/pants">
+	  <application 
+		  android:label="@string/app_name" 
+		  android:icon="@drawable/pants"
+		   android:theme="@android:style/Theme.NoTitleBar">
         <activity android:name="PantsAlerts"
 				android:label="@string/app_name"
 				android:screenOrientation="portrait">
