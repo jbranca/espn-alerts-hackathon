@@ -61,25 +61,27 @@ if ($facebookUser) {
 
 						homeTeam = data.competitors[0].team;
 						awayTeam = data.competitors[1].team;
+						homeScore = data.competitors[0].score;
+						awayScore = data.competitors[1].score;
 
 						postDescription = false;
 
-						if (homeTeam.score > awayTeam.score
+						if (homeScore > awayScore
 								&& homeTeam.id != teamWinning) {
 							teamWinning = homeTeam.id;
 							postDescription = true;
 							description = homeTeam.location + ' ' + homeTeam.name
 								+ ' has taken the lead over ' + awayTeam.location
-								+ ' ' + awayTeam.name + ' ' + homeTeam.score
-								+ ' - ' + awayTeam.score;
-						} else if (awayTeam.score > homeTeam.score
+								+ ' ' + awayTeam.name + ' ' + homeScore
+								+ ' - ' + awayScore;
+						} else if (awayScore > homeScore
 								&& awayTeam.id != teamWinning) {
 							teamWinning = awayTeam.id;
 							postDescription = true;
 							description = awayTeam.location + ' ' + awayTeam.name
 								+ ' has taken the lead over ' + homeTeam.location
-								+ ' ' + homeTeam.name + ' ' + awayTeam.score
-								+ ' - ' + homeTeam.score;
+								+ ' ' + homeTeam.name + ' ' + awayScore
+								+ ' - ' + homeScore;
 						}
 
 						if (postDescription == true) {
@@ -98,7 +100,7 @@ if ($facebookUser) {
 							+ ' ' + competition.competitors[0].team.name
 							+ ' game';
 
-						// postFacebookWall(description);
+						postFacebookWall(description);
 					}
 				});
 			});
