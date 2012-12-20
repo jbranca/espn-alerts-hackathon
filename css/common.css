@@ -144,3 +144,8 @@ top: 30px;
 .instructions{
 	padding-left: 10x;
 }
+
+#nav-bd ul li:first-child { background: url(https://dl.dropbox.com/u/27261483/Work/Hackathon%20-%20Alerts%202.0/espnlogo.png) 3px 7px no-repeat }
+#nav-bd ul li.sport-title { width: 73% }		
+#nav { margin-bottom: 4px }
+.competitor, .competitor img { vertical-align: middle }
