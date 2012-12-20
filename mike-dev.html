@@ -11,9 +11,18 @@
 	<link rel='stylesheet' href='vendor/bootstrap-2.2.2/css/bootstrap-responsive.css'/>
 	<link rel='stylesheet' href='css/common.css'/>
 	<style type='text/css'>
-		#nav-list-container { overflow: hidden; }
-		.nav-list .mygame { float: left; clear: both; margin: 0 0 10px 0; width: 100%; }
-		.nav-list .mygame .competitor { width: 75px; float: left; margin: 0 10px 0; line-height: 25px; }
+		#nav-list-container { overflow: hidden; padding: 0; }
+		#nav-list-container .nav-header {
+			background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#bc2026),color-stop(.5,#8d181b),color-stop(1,#670d0d));
+			background: -webkit-linear-gradient(top,#bc2026 0,#8d181b 50%,#670d0d 100%);
+			background: -ms-linear-gradient(top,#bc2026 0,#8d181b 50%,#670d0d 100%);
+			background: linear-gradient(top,#bc2026 0,#8d181b 50%,#670d0d 100%);
+			color: #FFF;
+		}
+		.nav-list .mygame { float: left; clear: both; margin: 0 0 10px 0; width: 100%; border-bottom: 1px solid #FFF; }
+		.nav-list .mygame:last-of-type { border-bottom: 0; }
+		.nav-list .mygame > a { padding-bottom: 13px; padding-top: 13px; display: block; overflow: hidden; }
+		.nav-list .mygame .competitor { width: 82px; float: left; margin: 0 10px 0 0; line-height: 25px; }
 		.nav-list .mygame .competitor img { height: 25px; width: 25px; }
 		.nav-list .mygame .status { float:left; line-height: 25px; }
 	</style>
