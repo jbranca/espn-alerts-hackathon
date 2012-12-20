@@ -278,7 +278,7 @@ var espnAlerts = (function () {
 			var myVar=setInterval(
 				function(){
 					espnAlerts.getScoreUpdate()
-				},15000);
+				},20000);
 			 
 		},
 
