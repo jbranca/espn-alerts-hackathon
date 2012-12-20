@@ -32,23 +32,39 @@
 	</div>	
 	<div id="content" class="clearfix"> 
 		<div class="left-column-wrap col">
-			<div id='left-column' class='col'>
+            <div id='left-column' class='col'>
+			    <div id="header" style="height:72px;"></div>
+                <div style="clear:both;margin-bottom:15px;"></div>
+                <img src="images/bose.png" class="advertisement"/>
+            </div>
+            <br>
+            <div id="left-column" class="col">
+                <div class="mod-wrap mod-news">
+					<div class="mod-head"><h3>Recent Alerts</h3></div>
+					<div class="mod-content">
+                        <ul id="plays"></ul>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div id="left-column" class="col">
+                <div class="mod-wrap mod-news">
+					<div class="mod-head"><h3>Settings</h3></div>
+					<div class="mod-content">
 
-				<div id="header" style="height:72px;"></div>
-				<div style="clear:both;margin-bottom:15px;"></div>
-			    <img src="images/bose.png" class="advertisement"/>
-				<ul id="plays"></ul>
-		
-				<button type="button" class="btn btn-large btn-danger" id="alerts-toggle">Stop</button>
+                        <div style="text-align:center">
+                            <button type="button" class="btn btn-large btn-danger" id="alerts-toggle">Stop</button>
+                        </div>
 			
-				<div id="settings">
+				        <div id="settings">
 				
-					<input type="radio" name="group1" value="all"> All Plays<br>
-					<input type="radio" name="group1" value="scoring" checked> Scoring Plays<br>
-					<input type="radio" name="group1" value="period-end"> Period Ending Plays<br>
-				
-				</div>
-				<div class="footer"></div>
+					        <input type="radio" name="group1" value="all"> All Plays<br>
+					        <input type="radio" name="group1" value="scoring" checked> Scoring Plays<br>
+					        <input type="radio" name="group1" value="intervals">4 Minute Intervals<br>
+                            <input type="radio" name="group1" value="period-end"> Period Ending Plays<br>
+                        </div>
+                    </diV>
+                </div>
 			</div>
 		</div>
 	</div>

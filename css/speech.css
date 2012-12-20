@@ -14,7 +14,6 @@
 }
 
 #alerts-toggle {
-	margin-left:40px;
 }
 
 #footer {
@@ -22,9 +21,11 @@
 }
 
 #settings {
-	width:100px;
+	width:250px;
 	border:1px solid #999;
 	padding:10px;
 	background-color:#ccc;
-	margin:10px;
+	margin:0px auto;
+	margin-top:10px;
+	text-align:center;
 }
