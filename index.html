@@ -48,7 +48,7 @@
 		<li class="nav-header">myTeams</li>
 		{{#if myGames}}
 			{{#each myGames}}
-				<li class='mygame'><a href="mode-select.html?gameId={{id}}">
+				<li class='mygame'><a href="mode-select.html?gameId={{id}}&sport={{sport.name}}&league={{league.abbreviation}}">
 				{{#each competitors}}
 					<div class='competitor'>
 						<img src="{{#logoContainer this sportAbbrev=../league.abbreviation size='medium'}} {{/logoContainer}}" />

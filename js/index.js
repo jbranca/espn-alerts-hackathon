@@ -26,6 +26,7 @@
 											var myGame = {};
 											$.extend(true, myGame, competition);
 											myGame.league = league;
+											myGame.sport = sport;
 											myGames.push(myGame);				
 											seenGames[competition.id] = true;
 										}
